@@ -1,4 +1,4 @@
-class RomanNumeral {
+class RomanNumeralSet {
 
     private indoArabicNumeral: number;
 
@@ -92,34 +92,35 @@ class RomanNumeral {
 
         // ver como separar em grupos de 3;
 
-        firstPlaceValue = this.indoArabicNumeral[indoArabicNumeralLength - 1];
+        // firstPlaceValue = this.indoArabicNumeral[indoArabicNumeralLength - 1];
 
-        if (firstPlaceValue > 3) {
-            if (firstPlaceValue < 9) {
-                startValue = 5;
-            } else {
-                startValue = 10;
-            }
-        }
+        // if (firstPlaceValue > 3) {
+        //     if (firstPlaceValue < 9) {
+        //         startValue = 5;
+        //     } else {
+        //         startValue = 10;
+        //     }
+        // }
 
         if (indoArabicNumeralLength >= 2) {
-            secondPlaceValue = this.indoArabicNumeral[indoArabicNumeralLength - 2];
+            // secondPlaceValue = this.indoArabicNumeral[indoArabicNumeralLength - 2];
             // 999
             // CMXCIX
             // 888
             // DCCCLXXXVIII
             // para saber se serão 1 ou 3 de qualquer letra, basta diminuir de 5, o valor do primeiro algarismo à esquerda, que a letra representa
-            if (secondPlaceValue > 3) {
-                if (secondPlaceValue < 9) {
-                    startValue = 5;
-                } else {
-                    startValue = 10;
-                }
-            }
 
-            if (indoArabicNumeralLength >= 3) {
-                thirstPlaceValue = this.indoArabicNumeral[indoArabicNumeralLength - 3];
-            }
+            // if (secondPlaceValue > 3) {
+            //     if (secondPlaceValue < 9) {
+            //         startValue = 5;
+            //     } else {
+            //         startValue = 10;
+            //     }
+            // }
+
+            // if (indoArabicNumeralLength >= 3) {
+            //     thirstPlaceValue = this.indoArabicNumeral[indoArabicNumeralLength - 3];
+            // }
 
             // if (indoArabicNumeralLength === 2) {
 
@@ -151,5 +152,5 @@ class RomanNumeral {
 
 }
 
-const romanNumeral = new RomanNumeral(1009);
+const romanNumeral = new RomanNumeralSet(12345);
 console.log(romanNumeral.numeral);
