@@ -54,6 +54,17 @@ class RomanNumeralSet {
         return `${value}`.charAt(0);
     }
 
+    private getGroupOfThousandsInRoman(thousandGroupNumber: number): string {
+
+        let composed: string  = '';
+
+        for (let i = 0; i < thousandGroupNumber; i++) {
+            composed += 'M';
+        }
+
+        return composed;
+    }
+
     private getSeparateValueInGroupsOf3(value: number): string[] {
 
         let valueAsString: string = `${value}`;
@@ -70,13 +81,13 @@ class RomanNumeralSet {
     private setRomanNumeral() {
         const indoArabicNumeralLength: number = `${this.indoArabicNumeral}`.length;
 
-        // let firstPlaceValue: number = 0;
+        let firstPlaceValue: number = 0;
 
-        // let secondPlaceValue: number = 0;
+        let secondPlaceValue: number = 0;
 
-        // let thirstPlaceValue: number = 0;
+        let thirstPlaceValue: number = 0;
 
-        let placeValue: number = 0;
+        // let placeValue: number = 0;
 
         // let thousandsPlaceValue: number = 0;
 
@@ -90,7 +101,15 @@ class RomanNumeralSet {
 
         let startValue: number;
 
+        // for (let i = 3; i > 3; i++) {
+
+        // }
+
+        // fazer ilação para ver se isso será necessário: vai aumentando a quantidade de zeros para multiplicação e saber o ponto de partida, a medida que se itera da direita para a esquerda
+
         // ver como separar em grupos de 3;
+
+        // a partir de 4 algarismos, da direita para a esquerda, do 4 algarismo em diante, a composição da representação em romanos é simples: serão tantos M quanto for o número da casa dos milhares
 
         // firstPlaceValue = this.indoArabicNumeral[indoArabicNumeralLength - 1];
 
