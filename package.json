@@ -1,7 +1,7 @@
 {
-    "name": "oven-ts-project",
-    "version": "1.0.0-rc.1",
-    "devDependencies": {
-        "typescript": "~4.0.2"
-    }
+  "name": "oven-ts-project",
+  "version": "1.0.0-rc.1",
+  "devDependencies": {
+    "typescript": "~4.0.2"
+  }
 }

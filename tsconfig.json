@@ -1,12 +1,14 @@
+// to build, run: $ tsc -p <path of the tsconfig.json file>
+
 {
-    "compilerOptions": {
-        "baseUrl": "./",
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "module": "ES2020",
-        "outDir": "dist",
-        "skipLibCheck": true,
-        "sourceMap": true,
-        "target": "ES2015"
-    }
+  "compilerOptions": {
+    "baseUrl": "./",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "ES2020",
+    "outDir": "dist",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "ES2015"
+  }
 }
