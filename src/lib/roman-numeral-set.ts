@@ -2,9 +2,9 @@ class RomanNumeralSet {
 
     private indoArabicNumeral: number;
 
-    private romanNumeral: string;
+    private romanNumeral!: string;
 
-    private romanNumeralMap: Map<number, string>;
+    private romanNumeralMap!: Map<number, string>;
 
     private romanNumeralList: string[];
 
@@ -97,7 +97,7 @@ class RomanNumeralSet {
 
         let valueOfHoundredPlaceInRoman: string = '';
 
-        let valueOfThousandPlaceInRoman: string = '';
+        let valueOfThousandPlaceInRoman: string = this.getGroupOfThousandsInRoman(this.indoArabicNumeral);
 
         let startValue: number;
 
@@ -167,9 +167,11 @@ class RomanNumeralSet {
         // for (let romanNumeral of this.romanNumeralList) {
 
         // }
+
+        this.romanNumeral = `${this.getGroupOfThousandsInRoman}`;
     }
 
 }
 
-const romanNumeral = new RomanNumeralSet(12345);
+const romanNumeral = new RomanNumeralSet(3214);
 console.log(romanNumeral.numeral);
