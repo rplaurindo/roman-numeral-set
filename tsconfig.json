@@ -3,18 +3,17 @@
   "compilerOptions": {
     // genereted by $ tsc init
     "esModuleInterop": true,
-    // genereted by $ tsc init
     "forceConsistentCasingInFileNames": true,
     "module": "ES2020",
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES2015",
+
     "outDir": "dist",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "rootDir": "./",
-    // genereted by $ tsc init
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "target": "ES2015"
+    "sourceMap": true
   },
   "include": [
     "./src",
