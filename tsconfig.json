@@ -9,6 +9,8 @@
     "strict": true,
     "target": "ES2015",
 
+    "declaration": true,
+    "declarationMap": true,
     "outDir": "dist",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -18,5 +20,8 @@
   "include": [
     "./src",
     "package.json"
+  ],
+  "files": [
+    "index.ts"
   ]
 }

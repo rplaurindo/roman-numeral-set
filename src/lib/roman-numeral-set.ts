@@ -1,4 +1,4 @@
-class RomanNumeralSet {
+export class RomanNumeralSet {
 
     private indoArabicNumeral: number;
 
