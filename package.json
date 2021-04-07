@@ -1,7 +1,8 @@
 {
-  "name": "oven-ts-project",
+  "name": "roman-numeral-set",
   "version": "1.0.0-rc.1",
   "devDependencies": {
-    "typescript": "~4.0.2"
+    "typescript": "~4.0.2",
+    "eslint": "~7.23.0"
   }
 }
