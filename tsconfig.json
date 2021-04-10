@@ -1,5 +1,5 @@
 {
-  // to build, run: $ tsc --build <path of the tsconfig.json file>
+  // to build, run: $ tsc --watch on root path of the tsconfig.json
   "compilerOptions": {
     // genereted by $ tsc init
     "esModuleInterop": true,

@@ -78,15 +78,35 @@ export class RomanNumeralSet {
         return groups;
     }
 
+    private getGroupOfThousands(separateValueInGroupsOf3: string[]): number {
+
+        const length: number = separateValueInGroupsOf3.length;
+
+        let valueAsString: string = '';
+
+        if (length > 1) {
+            for (let i: number = 0; i < length - 1; i++) {
+                valueAsString += `${separateValueInGroupsOf3[i]}`;
+            }
+
+            return Number.parseInt(valueAsString);
+        }
+
+        return 0;
+    }
+
     private setRomanNumeral() {
         const indoArabicNumeralLength: number = `${this.indoArabicNumeral}`.length;
 
-        let firstPlaceValue: number = Number.parseInt(this.getSeparateValueInGroupsOf3(this
-            .indoArabicNumeral)[0]);
+        const groups: string[]  = this.getSeparateValueInGroupsOf3(this.indoArabicNumeral);
 
-        let secondPlaceValue: number = 0;
+        // this will always exist
+        const firstPlaceValue: number = Number.parseInt(groups[groups.length - 1]);
 
-        let thirstPlaceValue: number = 0;
+        const secondPlaceValue: number = this.getGroupOfThousands(groups);
+        console.log(secondPlaceValue);
+
+        // console.log(firstPlaceValue);
 
         // let placeValue: number = 0;
 
@@ -98,9 +118,9 @@ export class RomanNumeralSet {
 
         let valueOfHoundredPlaceInRoman: string = '';
 
-
-
-        let valueOfThousandPlaceInRoman: string = this.getGroupOfThousandsInRoman(firstPlaceValue);
+        // negativo, tem de juntar do segundo (da direita para a esquerda) em diante para fazer este
+        let valueOfThousandPlaceInRoman: string = this
+            .getGroupOfThousandsInRoman(secondPlaceValue);
 
         let startValue: number;
 
@@ -176,5 +196,5 @@ export class RomanNumeralSet {
 
 }
 
-const romanNumeral = new RomanNumeralSet(3214);
+const romanNumeral = new RomanNumeralSet(30214);
 console.log(romanNumeral.numeral);
