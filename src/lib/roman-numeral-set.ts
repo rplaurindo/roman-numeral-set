@@ -101,12 +101,20 @@ export class RomanNumeralSet {
         const groups: string[]  = this.getSeparateValueInGroupsOf3(this.indoArabicNumeral);
 
         // this will always exist
-        const firstPlaceValue: number = Number.parseInt(groups[groups.length - 1]);
+        const firstGroupOfNumbers: number = Number.parseInt(groups[groups.length - 1]);
 
-        const secondPlaceValue: number = this.getGroupOfThousands(groups);
-        console.log(secondPlaceValue);
+        const secondGroupOfNumbers: number = this.getGroupOfThousands(groups);
 
-        // console.log(firstPlaceValue);
+        // this will always exist
+        const unityPlaceValue: number = Number
+            .parseInt(`${this.indoArabicNumeral}`[indoArabicNumeralLength - 1]);
+
+        const valueOfThousandPlaceInRoman: string = this
+            .getGroupOfThousandsInRoman(secondGroupOfNumbers);
+
+        let decimalPlaceValue: number = 0;
+
+        let houndredPlaceValue: number = 0;
 
         // let placeValue: number = 0;
 
@@ -118,23 +126,11 @@ export class RomanNumeralSet {
 
         let valueOfHoundredPlaceInRoman: string = '';
 
-        // negativo, tem de juntar do segundo (da direita para a esquerda) em diante para fazer este
-        let valueOfThousandPlaceInRoman: string = this
-            .getGroupOfThousandsInRoman(secondPlaceValue);
-
-        let startValue: number;
+        // let startValue: number;
 
         // for (let i = 3; i > 3; i++) {
 
         // }
-
-        // fazer ilação para ver se isso será necessário: vai aumentando a quantidade de zeros para multiplicação e saber o ponto de partida, a medida que se itera da direita para a esquerda
-
-        // ver como separar em grupos de 3;
-
-        // a partir de 4 algarismos, da direita para a esquerda, do 4 algarismo em diante, a composição da representação em romanos é simples: serão tantos M quanto for o número da casa dos milhares
-
-        // firstPlaceValue = this.indoArabicNumeral[indoArabicNumeralLength - 1];
 
         // if (firstPlaceValue > 3) {
         //     if (firstPlaceValue < 9) {
@@ -197,4 +193,4 @@ export class RomanNumeralSet {
 }
 
 const romanNumeral = new RomanNumeralSet(30214);
-console.log(romanNumeral.numeral);
+// console.log(romanNumeral.numeral);
