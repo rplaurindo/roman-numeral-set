@@ -168,7 +168,7 @@ export class RomanNumeralSet {
 
         // }
 
-        this.romanNumeral = `${this.getGroupOfThousandsInRoman}`;
+        this.romanNumeral = `${this.getGroupOfThousandsInRoman(this.indoArabicNumeral)}`;
     }
 
 }

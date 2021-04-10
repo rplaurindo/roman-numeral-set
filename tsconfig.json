@@ -4,7 +4,7 @@
     // genereted by $ tsc init
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "ES2020",
+    "module": "CommonJS",
     "skipLibCheck": true,
     "strict": true,
     "target": "ES2015",
@@ -18,10 +18,10 @@
     "sourceMap": true
   },
   "include": [
-    "./src",
-    "package.json"
+    "./src"
   ],
   "files": [
+    "package.json",
     "index.ts"
   ]
 }
