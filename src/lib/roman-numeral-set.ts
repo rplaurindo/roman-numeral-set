@@ -81,7 +81,8 @@ export class RomanNumeralSet {
     private setRomanNumeral() {
         const indoArabicNumeralLength: number = `${this.indoArabicNumeral}`.length;
 
-        let firstPlaceValue: number = 0;
+        let firstPlaceValue: number = Number.parseInt(this.getSeparateValueInGroupsOf3(this
+            .indoArabicNumeral)[0]);
 
         let secondPlaceValue: number = 0;
 
@@ -97,7 +98,9 @@ export class RomanNumeralSet {
 
         let valueOfHoundredPlaceInRoman: string = '';
 
-        let valueOfThousandPlaceInRoman: string = this.getGroupOfThousandsInRoman(this.indoArabicNumeral);
+
+
+        let valueOfThousandPlaceInRoman: string = this.getGroupOfThousandsInRoman(firstPlaceValue);
 
         let startValue: number;
 
@@ -168,7 +171,7 @@ export class RomanNumeralSet {
 
         // }
 
-        this.romanNumeral = `${this.getGroupOfThousandsInRoman(this.indoArabicNumeral)}`;
+        this.romanNumeral = `${valueOfThousandPlaceInRoman}`;
     }
 
 }
