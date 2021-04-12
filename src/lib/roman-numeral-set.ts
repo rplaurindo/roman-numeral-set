@@ -50,10 +50,6 @@ export class RomanNumeralSet {
 
     }
 
-    private getFirstDigit(value: number): string {
-        return `${value}`.charAt(0);
-    }
-
     private getGroupOfThousandsInRoman(thousandGroupNumber: number): string {
 
         let composed: string  = '';
@@ -105,15 +101,17 @@ export class RomanNumeralSet {
 
         const secondGroupOfNumbers: number = this.getGroupOfThousands(groups);
 
+        const valueOfThousandPlaceInRoman: string = this
+            .getGroupOfThousandsInRoman(secondGroupOfNumbers);
+
         // this will always exist
         const unityPlaceValue: number = Number
             .parseInt(`${this.indoArabicNumeral}`[indoArabicNumeralLength - 1]);
 
-        const valueOfThousandPlaceInRoman: string = this
-            .getGroupOfThousandsInRoman(secondGroupOfNumbers);
-
+        // multiplica por 10 para achá-lo (com algorítmo próprio) no array
         let decimalPlaceValue: number = 0;
 
+        // multiplica por 100 para achá-lo (com algorítmo próprio) no array
         let houndredPlaceValue: number = 0;
 
         // let placeValue: number = 0;
