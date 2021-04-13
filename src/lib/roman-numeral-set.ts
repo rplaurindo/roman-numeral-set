@@ -2,16 +2,18 @@ export class RomanNumeralSet {
 
     private indoArabicNumeral: number;
 
-    private romanNumeral!: string;
+    private _numeral!: string;
 
     private romanNumeralMap!: Map<number, string>;
 
     // tuple statement
-    private groupedRomanNumeralMap!: Map<number, [string, string]>;
+    // private groupedRomanNumeralMap!: Map<number, [string, string]>;
 
     private romanNumeralList: string[];
 
     constructor(indoArabicNumeral: number) {
+        this._numeral = '';
+
         if (indoArabicNumeral <= 0) {
             throw new Error(`There is no negative or zero values in Roman numeral.`);
         }
@@ -31,7 +33,7 @@ export class RomanNumeralSet {
     }
 
     get numeral(): string {
-        return this.romanNumeral;
+        return this._numeral;
     }
 
     private initializeNumeralsMap() {
@@ -40,7 +42,7 @@ export class RomanNumeralSet {
 
         this.romanNumeralMap = new Map();
 
-        this.groupedRomanNumeralMap = new Map();
+        // this.groupedRomanNumeralMap = new Map();
 
         this.romanNumeralMap.set(value, this.romanNumeralList[0]);
 
@@ -149,43 +151,41 @@ export class RomanNumeralSet {
 
         let placeOf: number = 1;
 
+        let unityValueOfPlaceInRoman: string;
+
         let indoArabicBaseValue: number;
 
-        let baseValueInRoman: string;
-
-        let unityValueOfPlace: number;
-
-        let unityValueOfPlaceInRoman: string;
+        let valueOfPlaceInRoman: string = '';
 
         for (let i = firstGroupOfNumbersLength - 1; i >= 0; i--) {
             currentDigit = Number.parseInt(firstGroupOfNumbersAsString.charAt(i));
 
+            unityValueOfPlaceInRoman = this.romanNumeralMap.get(placeOf) as string;
+
             // aqui o valor da unidade da casa vai à esquerda
             if (currentDigit === 4 || currentDigit === 9) {
                 indoArabicBaseValue = this.getImmediateNextValue(currentDigit, placeOf);
-                baseValueInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
-                // descobrir como encontrar o valor da unidade da casa
+                valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
+                valueOfPlaceInRoman = `${unityValueOfPlaceInRoman}${valueOfPlaceInRoman}`;
+                this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
             } else {
-                indoArabicBaseValue = 5 * placeOf;
-                baseValueInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
-                console.log(baseValueInRoman);
                 // aqui concatena-se os valores da unidade da casa
                 if (currentDigit < 5) {
-
+                    // valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
                 // aqui o valor da unidade da casa vai à direita
                 } else {
-
+                    indoArabicBaseValue = 5 * placeOf;
                 }
             }
 
             placeOf *= 10;
         }
 
-        this.romanNumeral = `${valueOfThousandPlaceInRoman}`;
+        this._numeral = `${valueOfThousandPlaceInRoman}${this._numeral}`;
     }
 
 }
 
 // const romanNumeral = new RomanNumeralSet(30214);
-const romanNumeral = new RomanNumeralSet(66);
-// console.log(romanNumeral.numeral);
+const romanNumeral = new RomanNumeralSet(69);
+console.log(romanNumeral.numeral);
