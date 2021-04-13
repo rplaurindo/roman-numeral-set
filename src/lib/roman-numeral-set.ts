@@ -170,19 +170,18 @@ export class RomanNumeralSet {
                 valueOfPlaceInRoman = `${unityValueOfPlaceInRoman}${valueOfPlaceInRoman}`;
                 this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
             } else {
-                // indoArabicBaseValue = placeOf;
-                // valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
+                indoArabicBaseValue = placeOf;
 
+                if (currentDigit >= 5) {
+                    indoArabicBaseValue = 5 * placeOf;
+                }
+
+                console.log(indoArabicBaseValue);
+
+                // aqui concatena-se os valores da unidade da casa
                 // não é para ir até currentDigit, é para fazer uma soma, somando de unidade em unidade, até o valor ser igual ao currentDigit. Ou seja, não dá pra usar for neste caso, tem de ser while ou do... while.
-                // compor as unidades até o número
                 // for (let unityValueOfPlaceI = 0; unityValueOfPlaceI < currentDigit; unityValueOfPlaceI++) {
                 //     unityValueOfPlaceInRoman += unityValueOfPlaceInRoman;
-                // }
-
-                // // aqui concatena-se os valores da unidade da casa
-                // if (currentDigit > 5) {
-                //     indoArabicBaseValue = 5 * placeOf;
-                //     valueOfPlaceInRoman = `${valueOfPlaceInRoman}${unityValueOfPlaceInRoman}`;
                 // }
 
                 // this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
@@ -197,7 +196,7 @@ export class RomanNumeralSet {
 }
 
 // const romanNumeral = new RomanNumeralSet(30214);
-const indoArabicValue = 44;
+const indoArabicValue = 3;
 console.log(`Indo Arabic value: `, indoArabicValue);
 const romanNumeral = new RomanNumeralSet(indoArabicValue);
 console.log(`Value converted to roman: `, romanNumeral.numeral);
