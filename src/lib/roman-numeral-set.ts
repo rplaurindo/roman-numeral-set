@@ -6,6 +6,10 @@ export class RomanNumeralSet {
 
     private romanNumeralMap!: Map<number, string>;
 
+    // tuple statement
+    // private groupedRomanNumeralMap!: Map<number, [string, string]>;
+    private groupedRomanNumeralMap!: Map<number, [string, string]>;
+
     private romanNumeralList: string[];
 
     constructor(indoArabicNumeral: number) {
@@ -19,6 +23,8 @@ export class RomanNumeralSet {
 
         this.indoArabicNumeral = indoArabicNumeral;
 
+        // 1, 5, 10, 50, 100, 500
+        // this.romanNumeralList = ['I', 'V', 'X', 'L', 'C', 'D'];
         // 1, 5, 10, 50, 100, 500, 1000
         this.romanNumeralList = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
 
@@ -34,9 +40,24 @@ export class RomanNumeralSet {
     private initializeNumeralsMap() {
         let value: number = 1;
 
+
         this.romanNumeralMap = new Map();
 
-        this.romanNumeralMap.set(value, 'I');
+        this.groupedRomanNumeralMap = new Map();
+
+        this.romanNumeralMap.set(value, this.romanNumeralList[0]);
+
+        // this.groupedRomanNumeralMap
+        // .set(groupOf, [this.romanNumeralList[0], this.romanNumeralList[1]]);
+
+        // let groupOf: number = 1;
+
+        // for (let i: number = 2; i < this.romanNumeralList.length - 1; i+=2) {
+        //     groupOf = groupOf * 10;
+
+        //     this.groupedRomanNumeralMap
+        //         .set(groupOf, [this.romanNumeralList[i], this.romanNumeralList[i+1]]);
+        // }
 
         for (let i: number = 2; i < this.romanNumeralList.length + 1; i++) {
             if (i % 2 === 0) {
@@ -74,6 +95,10 @@ export class RomanNumeralSet {
         return groups;
     }
 
+    // private compose() {
+
+    // }
+
     private getGroupOfThousands(separateValueInGroupsOf3: string[]): number {
 
         const length: number = separateValueInGroupsOf3.length;
@@ -91,6 +116,29 @@ export class RomanNumeralSet {
         return 0;
     }
 
+    // 9, 40, 90, 400, 900
+    private getImmediateNextValue(currentDigit: number, placeOf: number = 1): number {
+
+        let cardinalNumber: number = 1;
+
+        let currentValue: number = 1;
+
+        const romanNumeralMapKeys: number[] = Array.from(this.romanNumeralMap.keys());
+
+        // 1, 5, 10, 50, 100, 500, 1000
+        for (let i: number = 1; i < this.romanNumeralMap.size; i++) {
+            currentValue = romanNumeralMapKeys[i];
+
+            cardinalNumber = currentValue;
+
+            if (currentValue > currentDigit * placeOf) {
+                break;
+            }
+        }
+
+        return cardinalNumber;
+    }
+
     private setRomanNumeral() {
         const indoArabicNumeralLength: number = `${this.indoArabicNumeral}`.length;
 
@@ -100,6 +148,10 @@ export class RomanNumeralSet {
         const firstGroupOfNumbers: number = Number.parseInt(groups[groups.length - 1]);
 
         const secondGroupOfNumbers: number = this.getGroupOfThousands(groups);
+
+        const firstGroupOfNumbersAsString: string = `${firstGroupOfNumbers}`;
+
+        const firstGroupOfNumbersLength: number = firstGroupOfNumbersAsString.length;
 
         const valueOfThousandPlaceInRoman: string = this
             .getGroupOfThousandsInRoman(secondGroupOfNumbers);
@@ -126,17 +178,71 @@ export class RomanNumeralSet {
 
         // let startValue: number;
 
-        // for (let i = 3; i > 3; i++) {
+        let currentDigit: number;
 
+        let placeOf: number = 1;
+
+        let currentRomanNumber: string = '';
+
+        let cardinalBaseValue: number;
+
+        let baseValueInRoman: string;
+
+        for (let i = firstGroupOfNumbersLength - 1; i >= 0; i--) {
+            currentDigit = Number.parseInt(firstGroupOfNumbersAsString.charAt(i));
+
+            // if (unityPlaceValue > 3) {
+            //     if (unityPlaceValue < 9) {
+            //         // startValue = 5;
+            //     } else {
+            //         // startValue = 10;
+            //     }
+            // } else {
+            //     // chamar rotina de para adicionar as unidades
+            // }
+
+            // this.getImmediateNextValue(currentDigit);
+
+            if (currentDigit === 4 || currentDigit === 9) {
+                cardinalBaseValue = this.getImmediateNextValue(currentDigit, placeOf);
+                baseValueInRoman = this.romanNumeralMap.get(cardinalBaseValue) as string;
+                console.log(baseValueInRoman)
+            } else {
+                if (currentDigit < 5) {
+                    if (currentDigit === 4) {
+                        // concatenar o valor das unidades desse grupo
+                    } else {
+                        // multiplicar 5 por groupOf
+                        // colocar o valor da unidade desse grupo a esquerda
+                    }
+                } else {
+                    // já colocar o 5
+                    // colocar
+                }
+            }
+
+
+            // if (currentDigit === 5) {
+
+            // } else {
+            //     if (currentDigit < 5) {
+
+            //     } else {
+
+            //     }
+            // }
+
+            placeOf *= 10;
+        }
+
+        // for (let i: number = 2; i < this.romanNumeralList.length - 1; i += 2) {
+        //     groupOf = groupOf * 10;
+
+        //     this.groupedRomanNumeralMap
+        //         .set(groupOf, [this.romanNumeralList[i], this.romanNumeralList[i + 1]]);
         // }
 
-        // if (firstPlaceValue > 3) {
-        //     if (firstPlaceValue < 9) {
-        //         startValue = 5;
-        //     } else {
-        //         startValue = 10;
-        //     }
-        // }
+        // não precisa testar se tem esse ou aquele, basta iterar da direita para a esquerda, começando do penúltimo (length - 2) e a cada iteração o coeficiente é o atual multiplicado por 10.
 
         if (indoArabicNumeralLength >= 2) {
             // secondPlaceValue = this.indoArabicNumeral[indoArabicNumeralLength - 2];
@@ -190,5 +296,6 @@ export class RomanNumeralSet {
 
 }
 
-const romanNumeral = new RomanNumeralSet(30214);
+// const romanNumeral = new RomanNumeralSet(30214);
+const romanNumeral = new RomanNumeralSet(4);
 // console.log(romanNumeral.numeral);
