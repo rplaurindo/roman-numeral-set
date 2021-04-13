@@ -173,25 +173,23 @@ export class RomanNumeralSet {
                 this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
             } else {
                 indoArabicBaseValue = placeOf;
-                unityValueOfPlaceSum = indoArabicBaseValue;
 
                 if (currentDigit >= 5) {
                     indoArabicBaseValue = 5 * placeOf;
+
+                    valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
+
+                    if (currentDigit > 5) {
+                        indoArabicBaseValue += 1;
+                    }
                 }
 
-                // se for 5 está entrando em loop infinito
-                while ((unityValueOfPlaceSum + indoArabicBaseValue) != currentDigit) {
-                    unityValueOfPlaceSum += placeOf;
-                    // ir concatenando as unidade aqui
+                if (currentDigit != 5) {
+                    while ((indoArabicBaseValue + unityValueOfPlaceSum) <= currentDigit) {
+                        unityValueOfPlaceSum += placeOf;
+                        // ir concatenando as unidade aqui
+                    }
                 }
-
-                console.log(unityValueOfPlaceSum)
-
-                // aqui concatena-se os valores da unidade da casa
-                // não é para ir até currentDigit, é para fazer uma soma, somando de unidade em unidade, até o valor ser igual ao currentDigit. Ou seja, não dá pra usar for neste caso, tem de ser while ou do... while.
-                // for (let unityValueOfPlaceI = 0; unityValueOfPlaceI < currentDigit; unityValueOfPlaceI++) {
-                //     unityValueOfPlaceInRoman += unityValueOfPlaceInRoman;
-                // }
 
                 // this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
             }
@@ -205,7 +203,8 @@ export class RomanNumeralSet {
 }
 
 // const romanNumeral = new RomanNumeralSet(30214);
-const indoArabicValue = 5;
+const indoArabicValue = 3;
+// const indoArabicValue = 8;
 console.log(`Indo Arabic value: `, indoArabicValue);
 const romanNumeral = new RomanNumeralSet(indoArabicValue);
-console.log(`Value converted to roman: `, romanNumeral.numeral);
+// console.log(`Value converted to roman: `, romanNumeral.numeral);
