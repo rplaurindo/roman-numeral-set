@@ -7,9 +7,7 @@ export class RomanNumeralSet {
     private romanNumeralMap!: Map<number, string>;
 
     // tuple statement
-    // private groupedRomanNumeralMap!: Map<number, [string, string]>;
-
-    private romanNumeralList: string[];
+    private romanNumeralList: [string, string, string, string, string, string, string];
 
     constructor(indoArabicNumeral: number) {
         this._numeral = '';
@@ -42,21 +40,7 @@ export class RomanNumeralSet {
 
         this.romanNumeralMap = new Map();
 
-        // this.groupedRomanNumeralMap = new Map();
-
         this.romanNumeralMap.set(value, this.romanNumeralList[0]);
-
-        // this.groupedRomanNumeralMap
-        // .set(groupOf, [this.romanNumeralList[0], this.romanNumeralList[1]]);
-
-        // let groupOf: number = 1;
-
-        // for (let i: number = 2; i < this.romanNumeralList.length - 1; i+=2) {
-        //     groupOf = groupOf * 10;
-
-        //     this.groupedRomanNumeralMap
-        //         .set(groupOf, [this.romanNumeralList[i], this.romanNumeralList[i+1]]);
-        // }
 
         for (let i: number = 2; i < this.romanNumeralList.length + 1; i++) {
             if (i % 2 === 0) {
@@ -113,7 +97,7 @@ export class RomanNumeralSet {
 
     private getImmediateNextValue(currentDigit: number, placeOf: number = 1): number {
 
-        let cardinalNumber: number = 1;
+        let indoArabicNumber: number = 1;
 
         let currentValue: number = 1;
 
@@ -122,14 +106,14 @@ export class RomanNumeralSet {
         for (let i: number = 1; i < this.romanNumeralMap.size; i++) {
             currentValue = romanNumeralMapKeys[i];
 
-            cardinalNumber = currentValue;
+            indoArabicNumber = currentValue;
 
             if (currentValue > currentDigit * placeOf) {
                 break;
             }
         }
 
-        return cardinalNumber;
+        return indoArabicNumber;
     }
 
     private setRomanNumeral() {
@@ -153,19 +137,22 @@ export class RomanNumeralSet {
 
         let unityValueOfPlaceInRoman: string;
 
-        let unityValueOfPlaceSum: number = 0;
+        let unityValueOfPlaceSum: number;
 
         let indoArabicBaseValue: number;
 
-        let valueOfPlaceInRoman: string = '';
+        let valueOfPlaceInRoman: string;
 
         for (let i = firstGroupOfNumbersLength - 1; i >= 0; i--) {
+
+            unityValueOfPlaceSum = 0;
+
+            valueOfPlaceInRoman = '';
+
             currentDigit = Number.parseInt(firstGroupOfNumbersAsString.charAt(i));
 
             unityValueOfPlaceInRoman = this.romanNumeralMap.get(placeOf) as string;
 
-            // aqui o valor da unidade da casa vai à esquerda
-            // aqui está pronto
             if (currentDigit === 4 || currentDigit === 9) {
                 indoArabicBaseValue = this.getImmediateNextValue(currentDigit, placeOf);
                 valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
@@ -181,11 +168,9 @@ export class RomanNumeralSet {
                             .get(indoArabicBaseValue) as string;
                         indoArabicBaseValue += 1;
                     }
-                    // console.log(indoArabicBaseValue)
-                    // console.log(indoArabicBaseValue + unityValueOfPlaceSum)
-                    // console.log(unityValueOfPlaceInRoman)
+
                     while ((indoArabicBaseValue + unityValueOfPlaceSum)
-                        <= currentDigit * placeOf) {
+                        <= (currentDigit * placeOf)) {
                         unityValueOfPlaceSum += placeOf;
                         valueOfPlaceInRoman += unityValueOfPlaceInRoman;
                     }
@@ -204,15 +189,3 @@ export class RomanNumeralSet {
     }
 
 }
-
-// const romanNumeral = new RomanNumeralSet(30214);
-// const indoArabicValue = 9;
-// const indoArabicValue = 8;
-// const indoArabicValue = 5;
-// const indoArabicValue = 4;
-const indoArabicValue = 3;
-// const indoArabicValue = 10;
-// const indoArabicValue = 11;
-console.log(`Indo Arabic value: `, indoArabicValue);
-const romanNumeral = new RomanNumeralSet(indoArabicValue);
-console.log(`Value converted to roman: `, romanNumeral.numeral);
