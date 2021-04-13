@@ -140,8 +140,6 @@ export class RomanNumeralSet {
     }
 
     private setRomanNumeral() {
-        const indoArabicNumeralLength: number = `${this.indoArabicNumeral}`.length;
-
         const groups: string[]  = this.getSeparateValueInGroupsOf3(this.indoArabicNumeral);
 
         // this will always exist
@@ -156,56 +154,25 @@ export class RomanNumeralSet {
         const valueOfThousandPlaceInRoman: string = this
             .getGroupOfThousandsInRoman(secondGroupOfNumbers);
 
-        // this will always exist
-        const unityPlaceValue: number = Number
-            .parseInt(`${this.indoArabicNumeral}`[indoArabicNumeralLength - 1]);
-
-        // multiplica por 10 para achá-lo (com algorítmo próprio) no array
-        let decimalPlaceValue: number = 0;
-
-        // multiplica por 100 para achá-lo (com algorítmo próprio) no array
-        let houndredPlaceValue: number = 0;
-
-        // let placeValue: number = 0;
-
-        // let thousandsPlaceValue: number = 0;
-
-        let valueOfUnityPlaceInRoman: string = '';
-
-        let valueOfDecimalPlaceInRoman: string = '';
-
-        let valueOfHoundredPlaceInRoman: string = '';
-
-        // let startValue: number;
-
         let currentDigit: number;
 
         let placeOf: number = 1;
 
-        let currentRomanNumber: string = '';
-
-        let cardinalBaseValue: number;
+        let indoArabicBaseValue: number;
 
         let baseValueInRoman: string;
+
+        let unityValueOfPlace: number;
+
+        let unityValueOfPlaceInRoman: string;
 
         for (let i = firstGroupOfNumbersLength - 1; i >= 0; i--) {
             currentDigit = Number.parseInt(firstGroupOfNumbersAsString.charAt(i));
 
-            // if (unityPlaceValue > 3) {
-            //     if (unityPlaceValue < 9) {
-            //         // startValue = 5;
-            //     } else {
-            //         // startValue = 10;
-            //     }
-            // } else {
-            //     // chamar rotina de para adicionar as unidades
-            // }
-
-            // this.getImmediateNextValue(currentDigit);
-
+            // aqui o valor da unidade vai a esquerda
             if (currentDigit === 4 || currentDigit === 9) {
-                cardinalBaseValue = this.getImmediateNextValue(currentDigit, placeOf);
-                baseValueInRoman = this.romanNumeralMap.get(cardinalBaseValue) as string;
+                indoArabicBaseValue = this.getImmediateNextValue(currentDigit, placeOf);
+                baseValueInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
                 console.log(baseValueInRoman)
             } else {
                 if (currentDigit < 5) {
@@ -221,75 +188,8 @@ export class RomanNumeralSet {
                 }
             }
 
-
-            // if (currentDigit === 5) {
-
-            // } else {
-            //     if (currentDigit < 5) {
-
-            //     } else {
-
-            //     }
-            // }
-
             placeOf *= 10;
         }
-
-        // for (let i: number = 2; i < this.romanNumeralList.length - 1; i += 2) {
-        //     groupOf = groupOf * 10;
-
-        //     this.groupedRomanNumeralMap
-        //         .set(groupOf, [this.romanNumeralList[i], this.romanNumeralList[i + 1]]);
-        // }
-
-        // não precisa testar se tem esse ou aquele, basta iterar da direita para a esquerda, começando do penúltimo (length - 2) e a cada iteração o coeficiente é o atual multiplicado por 10.
-
-        if (indoArabicNumeralLength >= 2) {
-            // secondPlaceValue = this.indoArabicNumeral[indoArabicNumeralLength - 2];
-            // 999
-            // CMXCIX
-            // 888
-            // DCCCLXXXVIII
-            // para saber se serão 1 ou 3 de qualquer letra, basta diminuir de 5, o valor do primeiro algarismo à esquerda, que a letra representa
-
-            // if (secondPlaceValue > 3) {
-            //     if (secondPlaceValue < 9) {
-            //         startValue = 5;
-            //     } else {
-            //         startValue = 10;
-            //     }
-            // }
-
-            // if (indoArabicNumeralLength >= 3) {
-            //     thirstPlaceValue = this.indoArabicNumeral[indoArabicNumeralLength - 3];
-            // }
-
-            // if (indoArabicNumeralLength === 2) {
-
-            // }
-
-            // if (unityPlaceValue < 4) {
-            //     for (let i = 0; i < unityPlaceValue; i++) {
-            //         valueOfUnityPlaceInRoman += 'I';
-            //     }
-            // } else if (unityPlaceValue === 4) {
-            //     valueOfUnityPlaceInRoman = `I${valueOfUnityPlaceInRoman}`;
-            // } else {
-            //     // for (let romanNumeral of this.romanNumeralList) {
-            //     //     valueOfUnityPlaceInRoman += 'I';
-            //     // }
-            // }
-        } else if (indoArabicNumeralLength === 2) {
-
-        } else if (indoArabicNumeralLength === 3) {
-
-        } else {
-
-        }
-
-        // for (let romanNumeral of this.romanNumeralList) {
-
-        // }
 
         this.romanNumeral = `${valueOfThousandPlaceInRoman}`;
     }
@@ -297,5 +197,5 @@ export class RomanNumeralSet {
 }
 
 // const romanNumeral = new RomanNumeralSet(30214);
-const romanNumeral = new RomanNumeralSet(4);
+const romanNumeral = new RomanNumeralSet(94);
 // console.log(romanNumeral.numeral);
