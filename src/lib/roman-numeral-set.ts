@@ -162,9 +162,8 @@ export class RomanNumeralSet {
 
             unityValueOfPlaceInRoman = this.romanNumeralMap.get(placeOf) as string;
 
-            // console.log(unityValueOfPlaceInRoman)
-
             // aqui o valor da unidade da casa vai à esquerda
+            // aqui está pronto
             if (currentDigit === 4 || currentDigit === 9) {
                 indoArabicBaseValue = this.getImmediateNextValue(currentDigit, placeOf);
                 valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
@@ -198,7 +197,7 @@ export class RomanNumeralSet {
 }
 
 // const romanNumeral = new RomanNumeralSet(30214);
-const indoArabicValue = 69;
-console.log(`Indo Arabic value: `, 69);
+const indoArabicValue = 44;
+console.log(`Indo Arabic value: `, indoArabicValue);
 const romanNumeral = new RomanNumeralSet(indoArabicValue);
 console.log(`Value converted to roman: `, romanNumeral.numeral);
