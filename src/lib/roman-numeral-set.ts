@@ -162,6 +162,8 @@ export class RomanNumeralSet {
 
             unityValueOfPlaceInRoman = this.romanNumeralMap.get(placeOf) as string;
 
+            // console.log(unityValueOfPlaceInRoman)
+
             // aqui o valor da unidade da casa vai à esquerda
             if (currentDigit === 4 || currentDigit === 9) {
                 indoArabicBaseValue = this.getImmediateNextValue(currentDigit, placeOf);
@@ -169,27 +171,28 @@ export class RomanNumeralSet {
                 valueOfPlaceInRoman = `${unityValueOfPlaceInRoman}${valueOfPlaceInRoman}`;
                 this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
             } else {
-                indoArabicBaseValue = placeOf;
-                valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
+                // indoArabicBaseValue = placeOf;
+                // valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
 
+                // não é para ir até currentDigit, é para fazer uma soma, somando de unidade em unidade, até o valor ser igual ao currentDigit. Ou seja, não dá pra usar for neste caso, tem de ser while ou do... while.
                 // compor as unidades até o número
-                for (let unityValueOfPlaceI = 0; unityValueOfPlaceI < currentDigit; unityValueOfPlaceI++) {
-                    unityValueOfPlaceInRoman += unityValueOfPlaceInRoman;
-                }
+                // for (let unityValueOfPlaceI = 0; unityValueOfPlaceI < currentDigit; unityValueOfPlaceI++) {
+                //     unityValueOfPlaceInRoman += unityValueOfPlaceInRoman;
+                // }
 
-                // aqui concatena-se os valores da unidade da casa
-                if (currentDigit > 5) {
-                    indoArabicBaseValue = 5 * placeOf;
-                    valueOfPlaceInRoman = `${valueOfPlaceInRoman}${unityValueOfPlaceInRoman}`;
-                }
+                // // aqui concatena-se os valores da unidade da casa
+                // if (currentDigit > 5) {
+                //     indoArabicBaseValue = 5 * placeOf;
+                //     valueOfPlaceInRoman = `${valueOfPlaceInRoman}${unityValueOfPlaceInRoman}`;
+                // }
 
-                this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
+                // this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
             }
 
             placeOf *= 10;
         }
 
-        this._numeral = `${valueOfThousandPlaceInRoman}${this._numeral}`;
+        // this._numeral = `${valueOfThousandPlaceInRoman}${this._numeral}`;
     }
 
 }
