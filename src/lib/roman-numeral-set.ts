@@ -7,7 +7,6 @@ export class RomanNumeralSet {
     private romanNumeralMap!: Map<number, string>;
 
     // tuple statement
-    // private groupedRomanNumeralMap!: Map<number, [string, string]>;
     private groupedRomanNumeralMap!: Map<number, [string, string]>;
 
     private romanNumeralList: string[];
@@ -23,8 +22,6 @@ export class RomanNumeralSet {
 
         this.indoArabicNumeral = indoArabicNumeral;
 
-        // 1, 5, 10, 50, 100, 500
-        // this.romanNumeralList = ['I', 'V', 'X', 'L', 'C', 'D'];
         // 1, 5, 10, 50, 100, 500, 1000
         this.romanNumeralList = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
 
@@ -95,10 +92,6 @@ export class RomanNumeralSet {
         return groups;
     }
 
-    // private compose() {
-
-    // }
-
     private getGroupOfThousands(separateValueInGroupsOf3: string[]): number {
 
         const length: number = separateValueInGroupsOf3.length;
@@ -116,7 +109,6 @@ export class RomanNumeralSet {
         return 0;
     }
 
-    // 9, 40, 90, 400, 900
     private getImmediateNextValue(currentDigit: number, placeOf: number = 1): number {
 
         let cardinalNumber: number = 1;
@@ -125,7 +117,6 @@ export class RomanNumeralSet {
 
         const romanNumeralMapKeys: number[] = Array.from(this.romanNumeralMap.keys());
 
-        // 1, 5, 10, 50, 100, 500, 1000
         for (let i: number = 1; i < this.romanNumeralMap.size; i++) {
             currentValue = romanNumeralMapKeys[i];
 
