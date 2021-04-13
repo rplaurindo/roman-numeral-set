@@ -181,8 +181,11 @@ export class RomanNumeralSet {
                             .get(indoArabicBaseValue) as string;
                         indoArabicBaseValue += 1;
                     }
-
-                    while ((indoArabicBaseValue + unityValueOfPlaceSum) <= currentDigit) {
+                    // console.log(indoArabicBaseValue)
+                    // console.log(indoArabicBaseValue + unityValueOfPlaceSum)
+                    // console.log(unityValueOfPlaceInRoman)
+                    while ((indoArabicBaseValue + unityValueOfPlaceSum)
+                        <= currentDigit * placeOf) {
                         unityValueOfPlaceSum += placeOf;
                         valueOfPlaceInRoman += unityValueOfPlaceInRoman;
                     }
@@ -207,8 +210,8 @@ export class RomanNumeralSet {
 // const indoArabicValue = 8;
 // const indoArabicValue = 5;
 // const indoArabicValue = 4;
-// const indoArabicValue = 3;
-const indoArabicValue = 10;
+const indoArabicValue = 3;
+// const indoArabicValue = 10;
 // const indoArabicValue = 11;
 console.log(`Indo Arabic value: `, indoArabicValue);
 const romanNumeral = new RomanNumeralSet(indoArabicValue);
