@@ -174,37 +174,42 @@ export class RomanNumeralSet {
             } else {
                 indoArabicBaseValue = placeOf;
 
-                if (currentDigit >= 5) {
-                    indoArabicBaseValue = 5 * placeOf;
-
-                    valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
-
-                    if (currentDigit > 5) {
-                        indoArabicBaseValue += 1;
-                    }
-                }
-
                 if (currentDigit != 5) {
+                    if (currentDigit > 5) {
+                        indoArabicBaseValue = placeOf * 5;
+                        valueOfPlaceInRoman = this.romanNumeralMap
+                            .get(indoArabicBaseValue) as string;
+                        indoArabicBaseValue += 1;
+
+                    }
+
                     while ((indoArabicBaseValue + unityValueOfPlaceSum) <= currentDigit) {
                         unityValueOfPlaceSum += placeOf;
-                        // ir concatenando as unidade aqui
+                        // ir concatenando as unidades do contexto da casa, a valueOfPlaceInRoman, aqui
                     }
+                } else {
+                    indoArabicBaseValue = 5 * placeOf;
+                    valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
                 }
 
-                // this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
+                this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
             }
 
             placeOf *= 10;
         }
 
-        // this._numeral = `${valueOfThousandPlaceInRoman}${this._numeral}`;
+        this._numeral = `${valueOfThousandPlaceInRoman}${this._numeral}`;
     }
 
 }
 
 // const romanNumeral = new RomanNumeralSet(30214);
-const indoArabicValue = 3;
-// const indoArabicValue = 8;
+// const indoArabicValue = 9;
+const indoArabicValue = 8;
+// const indoArabicValue = 5;
+// const indoArabicValue = 4;
+// const indoArabicValue = 3;
+// const indoArabicValue = 10;
 console.log(`Indo Arabic value: `, indoArabicValue);
 const romanNumeral = new RomanNumeralSet(indoArabicValue);
-// console.log(`Value converted to roman: `, romanNumeral.numeral);
+console.log(`Value converted to roman: `, romanNumeral.numeral);
