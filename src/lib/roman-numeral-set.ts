@@ -160,22 +160,21 @@ export class RomanNumeralSet {
         for (let i = firstGroupOfNumbersLength - 1; i >= 0; i--) {
             currentDigit = Number.parseInt(firstGroupOfNumbersAsString.charAt(i));
 
-            // aqui o valor da unidade vai a esquerda
+            // aqui o valor da unidade da casa vai à esquerda
             if (currentDigit === 4 || currentDigit === 9) {
                 indoArabicBaseValue = this.getImmediateNextValue(currentDigit, placeOf);
                 baseValueInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
-                console.log(baseValueInRoman)
+                // descobrir como encontrar o valor da unidade da casa
             } else {
+                indoArabicBaseValue = 5 * placeOf;
+                baseValueInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
+                console.log(baseValueInRoman);
+                // aqui concatena-se os valores da unidade da casa
                 if (currentDigit < 5) {
-                    if (currentDigit === 4) {
-                        // concatenar o valor das unidades desse grupo
-                    } else {
-                        // multiplicar 5 por groupOf
-                        // colocar o valor da unidade desse grupo a esquerda
-                    }
+
+                // aqui o valor da unidade da casa vai à direita
                 } else {
-                    // já colocar o 5
-                    // colocar
+
                 }
             }
 
@@ -188,5 +187,5 @@ export class RomanNumeralSet {
 }
 
 // const romanNumeral = new RomanNumeralSet(30214);
-const romanNumeral = new RomanNumeralSet(94);
+const romanNumeral = new RomanNumeralSet(66);
 // console.log(romanNumeral.numeral);
