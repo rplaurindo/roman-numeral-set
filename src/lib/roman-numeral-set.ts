@@ -13,11 +13,11 @@ export class RomanNumeralSet {
         this._numeral = '';
 
         if (indoArabicNumeral <= 0) {
-            throw new Error(`There is no negative or zero values in Roman numeral.`);
+            throw new Error('There is no negative or zero values in Roman numeral.');
         }
 
         if (!Number.isInteger(indoArabicNumeral)) {
-            throw new Error(`There is no fractional values in Roman numeral.`);
+            throw new Error('There is no fractional values in Roman numeral.');
         }
 
         this.indoArabicNumeral = indoArabicNumeral;
