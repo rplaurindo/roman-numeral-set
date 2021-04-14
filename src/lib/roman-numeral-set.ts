@@ -2,7 +2,7 @@ export class RomanNumeralSet {
 
     private indoArabicNumeral: number;
 
-    private _numeral!: string;
+    private _numeral: string;
 
     private romanNumeralMap!: Map<number, string>;
 
@@ -37,7 +37,6 @@ export class RomanNumeralSet {
     private initializeNumeralsMap() {
         let value: number = 1;
 
-
         this.romanNumeralMap = new Map();
 
         this.romanNumeralMap.set(value, this.romanNumeralList[0]);
@@ -58,8 +57,10 @@ export class RomanNumeralSet {
 
         let composed: string  = '';
 
+        const romanLetter: string = this.romanNumeralMap.get(1000) as string;
+
         for (let i = 0; i < thousandGroupNumber; i++) {
-            composed += 'M';
+            composed += romanLetter;
         }
 
         return composed;
