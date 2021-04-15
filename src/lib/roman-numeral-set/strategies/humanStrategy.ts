@@ -4,6 +4,7 @@ import { AbstractRomanNumeralSet } from "../AbstractRomanNumeralSet";
 // the concrete strategy
 export class HumanStrategy extends AbstractRomanNumeralSet {
 
+
     constructor(indoArabicNumeral: number) {
         super(indoArabicNumeral);
 
