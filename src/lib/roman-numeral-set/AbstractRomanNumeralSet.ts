@@ -11,10 +11,10 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
     protected romanNumeralMap!: Map<number, string>;
 
     protected indoArabicNumeralList: [number, number, number, number, number,
-        number, number, number, number, number, number, number];
+        number, number, number, number, number, number, number, number];
 
     protected romanNumeralList: [string, string, string, string, string,
-        string, string, string, string, string, string, string];
+        string, string, string, string, string, string, string, string];
 
     constructor(indoArabicNumeral: number) {
         this._numeral = '';
@@ -29,10 +29,12 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         this.indoArabicNumeral = indoArabicNumeral;
 
-        this.indoArabicNumeralList = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 1000];
+        this.indoArabicNumeralList = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
 
-        //   1,    4,   5,    9,  10,   40,  50,   90, 100,  400,  500,  1000
-        this.romanNumeralList = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC', 'C', 'CD',  'D', 'M'];
+        //                        1,    4,   5,    9,  10,   40,  50,    90
+        this.romanNumeralList = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC',
+            // 100,  400,  500,  900,  1000
+                'C', 'CD',  'D', 'CM', 'M'];
 
         this.initializeNumeralsMap();
     }
@@ -42,21 +44,7 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
     }
 
     private initializeNumeralsMap() {
-        let value: number = 1;
-
         this.romanNumeralMap = new Map();
-
-        // this.romanNumeralMap.set(value, this.romanNumeralList[0]);
-
-        // for (let i: number = 2; i < this.romanNumeralList.length + 1; i++) {
-        //     if (i % 2 === 0) {
-        //         value = value * 5;
-        //     } else {
-        //         value = value * 2;
-        //     }
-
-        //     this.romanNumeralMap.set(value, this.romanNumeralList[i - 1]);
-        // }
 
         this.indoArabicNumeralList.forEach(
             (value: number, i: number) => {
@@ -64,25 +52,6 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
             }
         );
 
-    }
-
-    protected getImmediateNextValue(currentDigit: number, placeOf: number = 1): number {
-
-        let indoArabicNumber: number = 1;
-
-        let currentValue: number = 1;
-
-        for (let i: number = 1; i < this.romanNumeralMap.size; i++) {
-            currentValue = this.indoArabicNumeralList[i];
-
-            indoArabicNumber = currentValue;
-
-            if (currentValue > currentDigit * placeOf) {
-                break;
-            }
-        }
-
-        return indoArabicNumber;
     }
 
 }

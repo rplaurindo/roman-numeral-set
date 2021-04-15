@@ -91,9 +91,7 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
             unityValueOfPlaceInRoman = this.romanNumeralMap.get(placeOf) as string;
 
             if (currentDigit === 4 || currentDigit === 9) {
-                indoArabicBaseValue = this.getImmediateNextValue(currentDigit, placeOf);
-                valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
-                valueOfPlaceInRoman = `${unityValueOfPlaceInRoman}${valueOfPlaceInRoman}`;
+                valueOfPlaceInRoman = this.romanNumeralMap.get(currentDigit * placeOf) as string;
                 this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
             } else {
                 indoArabicBaseValue = placeOf;
