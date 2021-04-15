@@ -10,7 +10,7 @@ export class MathematicStrategy extends AbstractRomanNumeralSet {
         this.setRomanNumeral();
     }
 
-    private getImmediateNextValue(currentDigit: number, placeOf: number = 1): number {
+    private getHighestImmediateValue(currentDigit: number, placeOf: number = 1): number {
 
         let indoArabicNumber: number = 1;
 
