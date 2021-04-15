@@ -1,60 +1,13 @@
-import { StrategyInterface } from "../strategyInterface";
+import { AbstractRomanNumeralSet } from "../AbstractRomanNumeralSet";
 
 
 // the concrete strategy
-export class HumanStrategy implements StrategyInterface{
-
-    private indoArabicNumeral: number;
-
-    private _numeral: string;
-
-    private romanNumeralMap!: Map<number, string>;
-
-    // tuple statement
-    private romanNumeralList: [string, string, string, string, string, string, string];
+export class HumanStrategy extends AbstractRomanNumeralSet {
 
     constructor(indoArabicNumeral: number) {
-        this._numeral = '';
-
-        if (indoArabicNumeral <= 0) {
-            throw new Error('There is no negative or zero values in Roman numeral.');
-        }
-
-        if (!Number.isInteger(indoArabicNumeral)) {
-            throw new Error('There is no fractional values in Roman numeral.');
-        }
-
-        this.indoArabicNumeral = indoArabicNumeral;
-
-        // 1, 5, 10, 50, 100, 500, 1000
-        this.romanNumeralList = ['I', 'V', 'X', 'L', 'C', 'D', 'M'];
-
-        this.initializeNumeralsMap();
+        super(indoArabicNumeral);
 
         this.setRomanNumeral();
-    }
-
-    get numeral(): string {
-        return this._numeral;
-    }
-
-    private initializeNumeralsMap() {
-        let value: number = 1;
-
-        this.romanNumeralMap = new Map();
-
-        this.romanNumeralMap.set(value, this.romanNumeralList[0]);
-
-        for (let i: number = 2; i < this.romanNumeralList.length + 1; i++) {
-            if (i % 2 === 0) {
-                value = value * 5;
-            } else {
-                value = value * 2;
-            }
-
-            this.romanNumeralMap.set(value, this.romanNumeralList[i - 1]);
-        }
-
     }
 
     private getGroupOfThousandsInRoman(thousandGroupNumber: number): string {
@@ -98,27 +51,6 @@ export class HumanStrategy implements StrategyInterface{
         }
 
         return 0;
-    }
-
-    private getImmediateNextValue(currentDigit: number, placeOf: number = 1): number {
-
-        let indoArabicNumber: number = 1;
-
-        let currentValue: number = 1;
-
-        const romanNumeralMapKeys: number[] = Array.from(this.romanNumeralMap.keys());
-
-        for (let i: number = 1; i < this.romanNumeralMap.size; i++) {
-            currentValue = romanNumeralMapKeys[i];
-
-            indoArabicNumber = currentValue;
-
-            if (currentValue > currentDigit * placeOf) {
-                break;
-            }
-        }
-
-        return indoArabicNumber;
     }
 
     private setRomanNumeral() {
