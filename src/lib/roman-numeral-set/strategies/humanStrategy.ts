@@ -1,4 +1,8 @@
-export class RomanNumeralSet {
+import { StrategyInterface } from "../strategyInterface";
+
+
+// the concrete strategy
+export class HumanStrategy implements StrategyInterface{
 
     private indoArabicNumeral: number;
 
