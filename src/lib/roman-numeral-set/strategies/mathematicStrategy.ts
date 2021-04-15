@@ -3,6 +3,13 @@ import { AbstractRomanNumeralSet } from "../AbstractRomanNumeralSet";
 
 export class MathematicStrategy extends AbstractRomanNumeralSet {
 
+
+    constructor(indoArabicNumeral: number) {
+        super(indoArabicNumeral);
+
+        this.setRomanNumeral();
+    }
+
     private getImmediateNextValue(currentDigit: number, placeOf: number = 1): number {
 
         let indoArabicNumber: number = 1;
@@ -22,5 +29,8 @@ export class MathematicStrategy extends AbstractRomanNumeralSet {
         return indoArabicNumber;
     }
 
+    private setRomanNumeral() {
+
+    }
 
 }
