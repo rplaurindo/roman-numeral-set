@@ -65,7 +65,6 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
         return Number.parseInt(`1${zeros}`);
     }
 
-    // se enviar 66 é DX de 60, o 6 não interessa agora
     protected composeRomanNumberOfPlace(indoArabicNumber: number)
         : string {
 
@@ -73,16 +72,23 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         const indoArabicBaseNumber: number = this.getBaseNumberOfPlace(indoArabicNumber);
 
-        let numberInRomanOfPlace: string = '';
+        const romanBaseNumber: string = this.romanNumeralMap.get(indoArabicBaseNumber) as string;
+
+        const firstDigit: number = Number.parseInt(`${indoArabicNumber}`.charAt(0));
+
+        let numberInRomanOfPlace: string = romanBaseNumber;
 
         let unityInRomanOfPlace: string = this.romanNumeralMap.get(placeOf) as string;;
 
         let unityValueOfPlaceSum = 0;
 
-        while ((indoArabicBaseNumber + unityValueOfPlaceSum)
-            <= (Number.parseInt(`${indoArabicNumber}`.charAt(0)) * placeOf)) {
-            unityValueOfPlaceSum += placeOf;
-            numberInRomanOfPlace += unityInRomanOfPlace;
+        if (firstDigit === 4 || firstDigit === 9) {
+            numberInRomanOfPlace = `${unityInRomanOfPlace}${romanBaseNumber}`;
+        } else {
+            while ((indoArabicBaseNumber + unityValueOfPlaceSum) < (firstDigit * placeOf)) {
+                unityValueOfPlaceSum += placeOf;
+                numberInRomanOfPlace += unityInRomanOfPlace;
+            }
         }
 
         return numberInRomanOfPlace;

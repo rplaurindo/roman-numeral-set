@@ -87,15 +87,13 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
 
             currentDigit = Number.parseInt(firstGroupOfNumbersAsString.charAt(i));
 
-            unityInRomanOfPlace = this.romanNumeralMap.get(placeOf) as string;
+            if (currentDigit) {
+                unityInRomanOfPlace = this.romanNumeralMap.get(placeOf) as string;
 
-            if (currentDigit === 4 || currentDigit === 9) {
-                numberInRomanOfPlace = this.romanNumeralMap.get(currentDigit * placeOf) as string;
-            } else {
                 numberInRomanOfPlace = this.composeRomanNumberOfPlace(currentDigit * placeOf);
-            }
 
-            this._numeral = `${numberInRomanOfPlace}${this._numeral}`;
+                this._numeral = `${numberInRomanOfPlace}${this._numeral}`;
+            }
 
             placeOf *= 10;
         }
