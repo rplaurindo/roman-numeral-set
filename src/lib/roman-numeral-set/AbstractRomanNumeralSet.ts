@@ -94,6 +94,19 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
         return numberInRomanOfPlace;
     }
 
+    protected getGroupOfThousandsInRoman(thousandGroupNumber: number): string {
+
+        let composed: string = '';
+
+        const romanLetter: string = this.romanNumeralMap.get(1000) as string;
+
+        for (let i = 0; i < thousandGroupNumber; i++) {
+            composed += romanLetter;
+        }
+
+        return composed;
+    }
+
     private initializeNumeralsMap() {
         this.romanNumeralMap = new Map();
 

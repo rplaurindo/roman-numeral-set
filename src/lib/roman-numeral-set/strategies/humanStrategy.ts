@@ -11,19 +11,6 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
         this.setRomanNumeral();
     }
 
-    private getGroupOfThousandsInRoman(thousandGroupNumber: number): string {
-
-        let composed: string  = '';
-
-        const romanLetter: string = this.romanNumeralMap.get(1000) as string;
-
-        for (let i = 0; i < thousandGroupNumber; i++) {
-            composed += romanLetter;
-        }
-
-        return composed;
-    }
-
     private getSeparateValueInGroupsOf3(value: number): string[] {
 
         let valueAsString: string = `${value}`;
@@ -37,7 +24,7 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
         return groups;
     }
 
-    private getGroupOfThousands(separateValueInGroupsOf3: string[]): number {
+    private getNumberReferring2PlaceOfThousands(separateValueInGroupsOf3: string[]): number {
 
         const length: number = separateValueInGroupsOf3.length;
 
@@ -60,7 +47,7 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
         // this will always exist
         const firstGroupOfNumbers: number = Number.parseInt(groups[groups.length - 1]);
 
-        const secondGroupOfNumbers: number = this.getGroupOfThousands(groups);
+        const secondGroupOfNumbers: number = this.getNumberReferring2PlaceOfThousands(groups);
 
         const firstGroupOfNumbersAsString: string = `${firstGroupOfNumbers}`;
 
@@ -79,6 +66,7 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
 
         let numberInRomanOfPlace: string;
 
+        // deve-se começar da direita para a esquerda porque os números são maiores neste sentido, isto é, o valor a esquerda de outro representa sempre um valor maior que todos os outros à direita deste.
         for (let i = firstGroupOfNumbersLength - 1; i >= 0; i--) {
 
             unityValueOfPlaceSum = 0;
