@@ -73,50 +73,29 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
 
         let placeOf: number = 1;
 
-        let unityValueOfPlaceInRoman: string;
+        let unityInRomanOfPlace: string;
 
         let unityValueOfPlaceSum: number;
 
-        let indoArabicBaseValue: number;
-
-        let valueOfPlaceInRoman: string;
+        let numberInRomanOfPlace: string;
 
         for (let i = firstGroupOfNumbersLength - 1; i >= 0; i--) {
 
             unityValueOfPlaceSum = 0;
 
-            valueOfPlaceInRoman = '';
+            numberInRomanOfPlace = '';
 
             currentDigit = Number.parseInt(firstGroupOfNumbersAsString.charAt(i));
 
-            unityValueOfPlaceInRoman = this.romanNumeralMap.get(placeOf) as string;
+            unityInRomanOfPlace = this.romanNumeralMap.get(placeOf) as string;
 
             if (currentDigit === 4 || currentDigit === 9) {
-                valueOfPlaceInRoman = this.romanNumeralMap.get(currentDigit * placeOf) as string;
-                this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
+                numberInRomanOfPlace = this.romanNumeralMap.get(currentDigit * placeOf) as string;
             } else {
-                indoArabicBaseValue = placeOf;
-
-                if (currentDigit != 5) {
-                    if (currentDigit > 5) {
-                        indoArabicBaseValue = placeOf * 5;
-                        valueOfPlaceInRoman = this.romanNumeralMap
-                            .get(indoArabicBaseValue) as string;
-                        indoArabicBaseValue += 1;
-                    }
-
-                    while ((indoArabicBaseValue + unityValueOfPlaceSum)
-                        <= (currentDigit * placeOf)) {
-                        unityValueOfPlaceSum += placeOf;
-                        valueOfPlaceInRoman += unityValueOfPlaceInRoman;
-                    }
-                } else {
-                    indoArabicBaseValue = 5 * placeOf;
-                    valueOfPlaceInRoman = this.romanNumeralMap.get(indoArabicBaseValue) as string;
-                }
-
-                this._numeral = `${valueOfPlaceInRoman}${this._numeral}`;
+                numberInRomanOfPlace = this.composeRomanNumberOfPlace(currentDigit * placeOf);
             }
+
+            this._numeral = `${numberInRomanOfPlace}${this._numeral}`;
 
             placeOf *= 10;
         }

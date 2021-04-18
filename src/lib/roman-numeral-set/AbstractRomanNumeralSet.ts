@@ -10,8 +10,12 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
     protected romanNumeralMap!: Map<number, string>;
 
+    // tuple notation
     protected indoArabicNumeralList: [number, number, number, number, number,
         number, number, number, number, number, number, number, number];
+
+    protected indoArabicBaseNumberList: [number, number, number, number, number,
+        number, number];
 
     protected romanNumeralList: [string, string, string, string, string,
         string, string, string, string, string, string, string, string];
@@ -29,7 +33,9 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         this.indoArabicNumeral = indoArabicNumeral;
 
-        this.indoArabicNumeralList = [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
+        this.indoArabicBaseNumberList = [1, 5, 10, 50, 100, 500, 1000];
+
+        this.indoArabicNumeralList =    [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
 
         //                        1,    4,   5,    9,  10,   40,  50,    90
         this.romanNumeralList = ['I', 'IV', 'V', 'IX', 'X', 'XL', 'L', 'XC',
@@ -43,6 +49,45 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
         return this._numeral;
     }
 
+    protected getPlaceOfNumber(value: number): number {
+
+        const digitsCount: number = `${value}`.length;
+
+        let zeros: string = '';
+
+        let placeOf: number = 1;
+
+        for (let i: number = 1; i < digitsCount; i++) {
+            zeros += '0';
+            placeOf = Number.parseInt(`1${zeros}`);
+        }
+
+        return Number.parseInt(`1${zeros}`);
+    }
+
+    // se enviar 66 é DX de 60, o 6 não interessa agora
+    protected composeRomanNumberOfPlace(indoArabicNumber: number)
+        : string {
+
+        const placeOf: number = this.getPlaceOfNumber(indoArabicNumber);
+
+        const indoArabicBaseNumber: number = this.getBaseNumberOfPlace(indoArabicNumber);
+
+        let numberInRomanOfPlace: string = '';
+
+        let unityInRomanOfPlace: string = this.romanNumeralMap.get(placeOf) as string;;
+
+        let unityValueOfPlaceSum = 0;
+
+        while ((indoArabicBaseNumber + unityValueOfPlaceSum)
+            <= (Number.parseInt(`${indoArabicNumber}`.charAt(0)) * placeOf)) {
+            unityValueOfPlaceSum += placeOf;
+            numberInRomanOfPlace += unityInRomanOfPlace;
+        }
+
+        return numberInRomanOfPlace;
+    }
+
     private initializeNumeralsMap() {
         this.romanNumeralMap = new Map();
 
@@ -52,6 +97,36 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
             }
         );
 
+    }
+
+    private getBaseNumberOfPlace(indoArabicNumber: number): number {
+
+        const firstDigit: number = Number.parseInt(`${indoArabicNumber}`.charAt(0));
+
+        let indoArabicBaseNumber: number = 1;
+
+        if (firstDigit === 4 || firstDigit === 9) {
+            for (let i: number = 1; i < this.romanNumeralMap.size; i++) {
+
+                indoArabicBaseNumber = this.indoArabicBaseNumberList[i];
+
+                if (indoArabicBaseNumber >= indoArabicNumber) {
+                    break;
+                }
+            }
+        } else {
+            for (let i: number = 1; i < this.romanNumeralMap.size; i++) {
+
+                if (indoArabicBaseNumber > indoArabicNumber) {
+                    indoArabicBaseNumber = this.indoArabicBaseNumberList[i - 2];
+                    break;
+                }
+
+                indoArabicBaseNumber = this.indoArabicBaseNumberList[i];
+            }
+        }
+
+        return indoArabicBaseNumber;
     }
 
 }
