@@ -5,10 +5,18 @@ import { AbstractRomanNumeralSet } from "../AbstractRomanNumeralSet";
 export class HumanStrategy extends AbstractRomanNumeralSet {
 
 
+    protected _numeral: string;
+
     constructor(indoArabicNumeral: number) {
         super(indoArabicNumeral);
 
+        this._numeral = '';
+
         this.setRomanNumeral();
+    }
+
+    get numeral(): string {
+        return this._numeral;
     }
 
     private getSeparateValueInGroupsOf3(value: number): string[] {

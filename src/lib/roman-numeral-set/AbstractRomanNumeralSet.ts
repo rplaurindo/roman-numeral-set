@@ -4,9 +4,9 @@ import { StrategyInterface } from "./strategyInterface";
 // the concrete strategy
 export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
-    protected indoArabicNumeral: number;
+    abstract numeral: string;
 
-    protected _numeral: string;
+    protected indoArabicNumeral: number;
 
     protected romanNumeralMap!: Map<number, string>;
 
@@ -21,8 +21,6 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
         string, string, string, string, string, string, string, string];
 
     constructor(indoArabicNumeral: number) {
-        this._numeral = '';
-
         if (indoArabicNumeral <= 0) {
             throw new Error('There is no negative or zero values in Roman numeral.');
         }
@@ -43,10 +41,6 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
                 'C', 'CD',  'D', 'CM', 'M'];
 
         this.initializeNumeralsMap();
-    }
-
-    get numeral(): string {
-        return this._numeral;
     }
 
     protected getPlaceOfNumber(value: number): number {
