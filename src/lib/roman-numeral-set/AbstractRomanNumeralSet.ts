@@ -59,7 +59,7 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
         return Number.parseInt(`1${zeros}`);
     }
 
-    protected composeRomanNumeralOfPlace(indoArabicNumber: number)
+    protected decorateRomanNumeralOfPlace(indoArabicNumber: number)
         : string {
 
         const placeOf: number = this.getPlaceOfFirstDigit(indoArabicNumber);

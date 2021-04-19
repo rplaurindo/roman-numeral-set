@@ -77,7 +77,7 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
 
             // se o dígito for 0 dará problema porque não existe mapa para 0 por não existir representação do 0 em romano
             if (currentDigit) {
-                numberInRomanOfPlace = this.composeRomanNumeralOfPlace(currentDigit * placeOf);
+                numberInRomanOfPlace = this.decorateRomanNumeralOfPlace(currentDigit * placeOf);
 
                 this._numeral = `${numberInRomanOfPlace}${this._numeral}`;
             }
