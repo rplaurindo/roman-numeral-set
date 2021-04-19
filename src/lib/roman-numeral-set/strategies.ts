@@ -1,2 +1,2 @@
 export * from './strategies/humanStrategy';
-export * from './strategies/mathematicStrategy';
+export * from './strategies/mathematicalStrategy';

@@ -1,11 +1,14 @@
-import { AbstractRomanNumeralSet } from "../AbstractRomanNumeralSet";
+import { AbstractRomanNumeralSet } from "../abstractRomanNumeralSet";
 
 
 // the concrete strategy
 export class HumanStrategy extends AbstractRomanNumeralSet {
 
-
     protected _numeral: string;
+
+    get numeral(): string {
+        return this._numeral;
+    }
 
     constructor(indoArabicNumeral: number) {
         super(indoArabicNumeral);
@@ -13,10 +16,6 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
         this._numeral = '';
 
         this.setRomanNumeral();
-    }
-
-    get numeral(): string {
-        return this._numeral;
     }
 
     private getSeparateValueInGroupsOf3(value: number): string[] {
@@ -78,7 +77,7 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
 
             // se o dígito for 0 dará problema porque não existe mapa para 0 por não existir representação do 0 em romano
             if (currentDigit) {
-                numberInRomanOfPlace = this.composeRomanNumberOfPlace(currentDigit * placeOf);
+                numberInRomanOfPlace = this.composeRomanNumeralOfPlace(currentDigit * placeOf);
 
                 this._numeral = `${numberInRomanOfPlace}${this._numeral}`;
             }

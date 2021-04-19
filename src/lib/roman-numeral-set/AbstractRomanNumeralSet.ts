@@ -43,7 +43,7 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
         this.initializeNumeralsMap();
     }
 
-    protected getPlaceOfNumber(value: number): number {
+    protected getPlaceOfFirstDigit(value: number): number {
 
         const digitsCount: number = `${value}`.length;
 
@@ -59,10 +59,10 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
         return Number.parseInt(`1${zeros}`);
     }
 
-    protected composeRomanNumberOfPlace(indoArabicNumber: number)
+    protected composeRomanNumeralOfPlace(indoArabicNumber: number)
         : string {
 
-        const placeOf: number = this.getPlaceOfNumber(indoArabicNumber);
+        const placeOf: number = this.getPlaceOfFirstDigit(indoArabicNumber);
 
         const indoArabicBaseNumber: number = this.getBaseNumberOfPlace(indoArabicNumber);
 
