@@ -60,24 +60,16 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
 
         let placeOf: number = 1;
 
-        let unityInRomanOfPlace: string;
-
-        let unityValueOfPlaceSum: number;
-
         let numberInRomanOfPlace: string;
 
         // deve-se começar da direita para a esquerda porque os números são maiores neste sentido, isto é, o valor a esquerda de outro representa sempre um valor maior que todos os outros à direita deste.
         for (let i = firstGroupOfNumbersLength - 1; i >= 0; i--) {
-
-            unityValueOfPlaceSum = 0;
-
             numberInRomanOfPlace = '';
 
             currentDigit = Number.parseInt(firstGroupOfNumbersAsString.charAt(i));
 
+            // se o dígito for 0 dará problema porque não existe mapa para 0 por não existir representação do 0 em romano
             if (currentDigit) {
-                unityInRomanOfPlace = this.romanNumeralMap.get(placeOf) as string;
-
                 numberInRomanOfPlace = this.composeRomanNumberOfPlace(currentDigit * placeOf);
 
                 this._numeral = `${numberInRomanOfPlace}${this._numeral}`;

@@ -72,26 +72,24 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         const indoArabicBaseNumber: number = this.getBaseNumberOfPlace(indoArabicNumber);
 
-        const romanBaseNumber: string = this.romanNumeralMap.get(indoArabicBaseNumber) as string;
-
         const firstDigit: number = Number.parseInt(`${indoArabicNumber}`.charAt(0));
 
-        let numberInRomanOfPlace: string = romanBaseNumber;
+        let romanBaseDigit: string = this.romanNumeralMap.get(indoArabicBaseNumber) as string;
 
-        let unityInRomanOfPlace: string = this.romanNumeralMap.get(placeOf) as string;;
+        let unityInRomanOfPlace: string = this.romanNumeralMap.get(placeOf) as string;
 
         let unityValueOfPlaceSum = 0;
 
         if (firstDigit === 4 || firstDigit === 9) {
-            numberInRomanOfPlace = `${unityInRomanOfPlace}${romanBaseNumber}`;
+            romanBaseDigit = `${unityInRomanOfPlace}${romanBaseDigit}`;
         } else {
             while ((indoArabicBaseNumber + unityValueOfPlaceSum) < (firstDigit * placeOf)) {
                 unityValueOfPlaceSum += placeOf;
-                numberInRomanOfPlace += unityInRomanOfPlace;
+                romanBaseDigit += unityInRomanOfPlace;
             }
         }
 
-        return numberInRomanOfPlace;
+        return romanBaseDigit;
     }
 
     protected getGroupOfThousandsInRoman(thousandGroupNumber: number): string {
