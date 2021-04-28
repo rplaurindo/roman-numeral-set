@@ -2,7 +2,7 @@ import { HumanStrategy } from './lib/roman-numeral-set/strategies/humanStrategy'
 import { StrategyContext } from './lib/roman-numeral-set/strategyContext';
 
 
-const indoArabicValue = 12609;
+const indoArabicValue = 12209;
 console.log(`Indo Arabic value: `, indoArabicValue);
 
 const romanNumeral = new StrategyContext(new HumanStrategy(indoArabicValue));
