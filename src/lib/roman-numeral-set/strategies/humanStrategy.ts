@@ -69,7 +69,7 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
 
         let numberInRomanOfPlace: string;
 
-        // deve-se começar da direita para a esquerda porque os números são maiores neste sentido, isto é, o valor a esquerda de outro representa sempre um valor maior que todos os outros à direita deste.
+        // a lógica de se começar da direita para a esquerda se dá, neste caso, porque os números são maiores neste sentido, isto é, um valor a esquerda de outros representa sempre um valor maior que todos esses outros que estão à direita.
         for (let i = firstGroupOfNumbersLength - 1; i >= 0; i--) {
             numberInRomanOfPlace = '';
 

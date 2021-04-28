@@ -14,8 +14,8 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
     protected indoArabicNumeralList: [number, number, number, number, number,
         number, number, number, number, number, number, number, number];
 
-    // protected indoArabicBaseNumberList: [number, number, number, number, number,
-    protected indoArabicBaseNumberList: [number, number, number, number,
+        // protected indoArabicBaseNumberList: [number, number, number, number,
+    protected indoArabicBaseNumberList: [number, number, number, number, number,
         number, number];
 
     protected romanNumeralList: [string, string, string, string, string,
@@ -32,8 +32,8 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         this.indoArabicNumeral = indoArabicNumeral;
 
-        // this.indoArabicBaseNumberList = [1, 5, 10, 50, 100, 500, 1000];
-        this.indoArabicBaseNumberList = [5, 10, 50, 100, 500, 1000];
+        this.indoArabicBaseNumberList = [1, 5, 10, 50, 100, 500, 1000];
+        // this.indoArabicBaseNumberList = [5, 10, 50, 100, 500, 1000];
 
         this.indoArabicNumeralList =    [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
 
@@ -51,11 +51,8 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         let zeros: string = '';
 
-        let placeOf: number = 1;
-
         for (let i: number = 1; i < digitsCount; i++) {
             zeros += '0';
-            placeOf = Number.parseInt(`1${zeros}`);
         }
 
         return Number.parseInt(`1${zeros}`);
@@ -116,12 +113,9 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         const firstDigit: number = Number.parseInt(`${indoArabicNumber}`.charAt(0));
 
-        let indoArabicBaseNumber: number = 1;
+        let indoArabicBaseNumber: number = 0;
 
         let indoArabicBaseNumberListLength: number = this.indoArabicBaseNumberList.length;
-
-        console.log(indoArabicNumber)
-        console.log(this.indoArabicBaseNumberList)
 
         if (firstDigit === 4 || firstDigit === 9) {
             for (let i: number = 0; i < indoArabicBaseNumberListLength; i++) {
@@ -129,30 +123,22 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
                 indoArabicBaseNumber = this.indoArabicBaseNumberList[i];
 
                 if (indoArabicBaseNumber >= indoArabicNumber) {
+                    this.indoArabicBaseNumberList.splice(0, i + 2);
                     break;
                 }
-
-                this.indoArabicBaseNumberList.shift();
-                indoArabicBaseNumberListLength--;
-                i--;
             }
         } else {
-            for (let i: number = 0; i < indoArabicBaseNumberListLength; i++) {
+            for (let i: number = 0; i <= indoArabicBaseNumberListLength; i++) {
 
                 if (indoArabicBaseNumber > indoArabicNumber) {
                     indoArabicBaseNumber = this.indoArabicBaseNumberList[i - 2];
+                    this.indoArabicBaseNumberList.splice(0, i);
                     break;
                 }
 
                 indoArabicBaseNumber = this.indoArabicBaseNumberList[i];
-                // this.indoArabicBaseNumberList.shift();
-                // indoArabicBaseNumberListLength--;
-                // i--;
             }
         }
-
-        console.log(this.indoArabicBaseNumberList)
-        console.log('------------')
 
         return indoArabicBaseNumber;
     }
