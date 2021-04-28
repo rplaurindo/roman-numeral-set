@@ -118,41 +118,36 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         let indoArabicBaseNumber: number = 1;
 
-        // console.log(indoArabicNumber)
-        // console.log(this.indoArabicBaseNumberList)
-        // console.log('------------')
+        let indoArabicNumeralListLength: number = this.indoArabicNumeralList.length;
 
-        // this.indoArabicBaseNumberList.shift();
         console.log(indoArabicNumber)
         console.log(this.indoArabicBaseNumberList)
 
         if (firstDigit === 4 || firstDigit === 9) {
-            for (let i: number = 0; i < this.indoArabicNumeralList.length; i++) {
+            for (let i: number = 0; i < indoArabicNumeralListLength; i++) {
 
                 indoArabicBaseNumber = this.indoArabicBaseNumberList[i];
 
-                // console.log(indoArabicBaseNumber)
-                // this.indoArabicBaseNumberList.splice(i, 1);
-
                 if (indoArabicBaseNumber >= indoArabicNumber) {
-                    // console.log(indoArabicBaseNumber)
                     break;
                 }
+
+                this.indoArabicBaseNumberList.shift();
+                indoArabicNumeralListLength--;
+                i--;
             }
         } else {
-            for (let i: number = 0; i < this.indoArabicNumeralList.length; i++) {
+            for (let i: number = 0; i < indoArabicNumeralListLength; i++) {
 
                 if (indoArabicBaseNumber > indoArabicNumber) {
                     indoArabicBaseNumber = this.indoArabicBaseNumberList[i - 2];
-                    // this.indoArabicBaseNumberList.splice(i - 2, 1);
                     break;
                 }
 
                 indoArabicBaseNumber = this.indoArabicBaseNumberList[i];
-                console.log(indoArabicBaseNumber)
-                // this.indoArabicBaseNumberList.splice(i - 2, 1);
-                // this.indoArabicBaseNumberList.splice(i - 2, 2);
-                // this.indoArabicBaseNumberList.splice(i, 1);
+                // this.indoArabicBaseNumberList.shift();
+                // indoArabicNumeralListLength--;
+                // i--;
             }
         }
 
