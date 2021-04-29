@@ -77,13 +77,13 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         const placeOf: number = this.getPlaceOfFirstDigit(indoArabicNumeral);
 
-        const indoArabicBaseNumber: number = this.getBaseNumberOfPlace(indoArabicNumeral);
-
         const firstDigit: number = Number.parseInt(`${indoArabicNumeral}`.charAt(0));
 
-        let decoratedRomanNumeral: string = this.romanNumeralMap.get(indoArabicBaseNumber) as string;
-
         let unityInRomanOfPlace: string = this.romanNumeralMap.get(placeOf) as string;
+
+        let indoArabicBaseNumber: number;
+
+        let decoratedRomanNumeral: string;
 
         let unityValueOfPlaceSum = 0;
 
@@ -96,6 +96,9 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
             groupOfThousands = this.getNumberReferring2PlaceOfThousands(groups);
             decoratedRomanNumeral = this.getChunkOfThousandInRoman(groupOfThousands);
         } else {
+            indoArabicBaseNumber = this.getBaseNumberOfPlace(indoArabicNumeral);
+            decoratedRomanNumeral = this.romanNumeralMap.get(indoArabicBaseNumber) as string;
+
             if (firstDigit === 4 || firstDigit === 9) {
                 decoratedRomanNumeral = `${unityInRomanOfPlace}${decoratedRomanNumeral}`;
             } else {
