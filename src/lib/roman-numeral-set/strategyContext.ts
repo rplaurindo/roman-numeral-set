@@ -4,14 +4,18 @@ import { StrategyInterface } from "./strategyInterface";
 // to use
 export class StrategyContext {
 
-    private strategy: StrategyInterface;
+    private _strategy: StrategyInterface;
 
     constructor(strategy: StrategyInterface) {
-        this.strategy = strategy;
+        this._strategy = strategy;
     }
 
     get numeral(): string {
-        return this.strategy.numeral;
+        return this._strategy.numeral;
+    }
+
+    set strategy(strategy: StrategyInterface) {
+        this._strategy = strategy;
     }
 
 }

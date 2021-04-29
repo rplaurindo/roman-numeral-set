@@ -18,7 +18,9 @@ export class MathematicalStrategy extends AbstractRomanNumeralSet {
     }
 
     private setRomanNumeral() {
-
+        for (let i = this.indoArabicNumeralList.length - 1; i >= 0; i--) {
+            console.log(this.indoArabicNumeralList[i])
+        }
     }
 
 }
