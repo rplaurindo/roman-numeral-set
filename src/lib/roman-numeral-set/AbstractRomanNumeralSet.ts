@@ -87,11 +87,9 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         let unityValueOfPlaceSum = 0;
 
-
         let groups: string[];
 
         let groupOfThousands: number;
-
 
         if (indoArabicNumeral > 999) {
             groups = this.getSeparateValueInGroupsOf3(indoArabicNumeral);
@@ -112,7 +110,7 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
         return decoratedRomanNumeral;
     }
 
-    protected getChunkOfThousandInRoman(thousandGroupNumber: number): string {
+    private getChunkOfThousandInRoman(thousandGroupNumber: number): string {
 
         let composed: string = '';
 

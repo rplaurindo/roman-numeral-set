@@ -25,15 +25,9 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
         // this will always exist
         const numberOfHoundreadsPlace: number = Number.parseInt(groups[groups.length - 1]);
 
-        // const secondGroupOfNumbers: number = this.getNumberReferring2PlaceOfThousands(groups);
-
         const numberOfHoundreadsPlaceAsString: string = `${numberOfHoundreadsPlace}`;
 
         const numberOfHoundreadsPlaceLength: number = numberOfHoundreadsPlaceAsString.length;
-
-        // adicionar essa lógica ao método decorate para adicionar suporte a composição da parte de milhar. Acho que não vai precisar disso aqui, consequentemente.
-        // const valueOfThousandPlaceInRoman: string = this
-        //     .getChunkOfThousandInRoman(secondGroupOfNumbers);
 
         let valueOfThousandPlaceInRoman: string = '';
 
@@ -42,8 +36,6 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
         let placeOf: number = 1;
 
         let numberInRomanOfPlace: string;
-
-        // Colocar um if para filtrar se this.indoArabicNumeral é maior que 999, caso seja já fazer o decorate de cara que o decorate agora está inteligente o bastante para suportar a casa de milhares
 
         if (this.indoArabicNumeral > 999) {
             valueOfThousandPlaceInRoman = this.decorateRomanNumeralOfPlace(this.indoArabicNumeral);
