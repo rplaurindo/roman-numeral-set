@@ -79,7 +79,7 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         const firstDigit: number = Number.parseInt(`${indoArabicNumeral}`.charAt(0));
 
-        let unityInRomanOfPlace: string = this.romanNumeralMap.get(placeOf) as string;
+        let placeUnityInRoman: string = this.romanNumeralMap.get(placeOf) as string;
 
         let indoArabicBaseNumber: number;
 
@@ -91,21 +91,25 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         let groupOfThousands: number;
 
+        // acho que aqui já dá pra usar a lógica de dividir o valor passado como parâmetro por um determinado de this.indoArabicNumeralList, segundo uma determinada lógica para alcançar o valor desta lista para pegar a parte inteira e descobrir times2Repeat um numeral romano no contexto
         if (indoArabicNumeral > 999) {
             groups = this.getSeparateValueInGroupsOf3(indoArabicNumeral);
             groupOfThousands = this.getNumberReferring2PlaceOfThousands(groups);
-            decoratedRomanNumeral = this.getChunkOfThousandInRoman(groupOfThousands);
+            decoratedRomanNumeral = this.composePlaceUnityInRoman(
+                this.romanNumeralMap.get(1000) as string
+                , groupOfThousands
+            );
         } else {
             indoArabicBaseNumber = this.getBaseNumberOfPlace(indoArabicNumeral);
             decoratedRomanNumeral = this.romanNumeralMap.get(indoArabicBaseNumber) as string;
 
-            // ao invés de ser usado um if ou um loop aqui, pode ser usado um cálculo matemático
             if (firstDigit === 4 || firstDigit === 9) {
-                decoratedRomanNumeral = `${unityInRomanOfPlace}${decoratedRomanNumeral}`;
+                decoratedRomanNumeral = `${placeUnityInRoman}${decoratedRomanNumeral}`;
             } else {
+                // ao invés de ser usado um loop aqui pode ser aproveitado o cálculo matemático como parâmetro de um método
                 while ((indoArabicBaseNumber + unityValueOfPlaceSum) < (firstDigit * placeOf)) {
                     unityValueOfPlaceSum += placeOf;
-                    decoratedRomanNumeral += unityInRomanOfPlace;
+                    decoratedRomanNumeral += placeUnityInRoman;
                 }
             }
         }
@@ -114,14 +118,12 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
         return decoratedRomanNumeral;
     }
 
-    private getChunkOfThousandInRoman(thousandGroupNumber: number): string {
+    private composePlaceUnityInRoman(placeUnityInRoman: string, times2Repeat: number): string {
 
         let composed: string = '';
 
-        const romanLetter: string = this.romanNumeralMap.get(1000) as string;
-
-        for (let i = 0; i < thousandGroupNumber; i++) {
-            composed += romanLetter;
+        for (let i = 0; i < times2Repeat; i++) {
+            composed += placeUnityInRoman;
         }
 
         return composed;
