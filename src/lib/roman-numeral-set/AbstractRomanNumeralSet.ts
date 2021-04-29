@@ -99,6 +99,7 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
             indoArabicBaseNumber = this.getBaseNumberOfPlace(indoArabicNumeral);
             decoratedRomanNumeral = this.romanNumeralMap.get(indoArabicBaseNumber) as string;
 
+            // ao invés de ser usado um if ou um loop aqui, pode ser usado um cálculo matemático
             if (firstDigit === 4 || firstDigit === 9) {
                 decoratedRomanNumeral = `${unityInRomanOfPlace}${decoratedRomanNumeral}`;
             } else {
