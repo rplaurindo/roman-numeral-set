@@ -10,6 +10,6 @@ let romanNumeral: StrategyContext;
 
 romanNumeral = new StrategyContext(new HumanStrategy(indoArabicValue));
 
-// romanNumeral.strategy = new MathematicalStrategy(indoArabicValue);
+// romanNumeral = new StrategyContext(new MathematicalStrategy(indoArabicValue));
 
 console.log(`Value converted to roman: `, romanNumeral.numeral);

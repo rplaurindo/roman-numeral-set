@@ -14,8 +14,4 @@ export class StrategyContext {
         return this._strategy.numeral;
     }
 
-    set strategy(strategy: StrategyInterface) {
-        this._strategy = strategy;
-    }
-
 }
