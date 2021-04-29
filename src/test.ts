@@ -7,7 +7,7 @@ const indoArabicValue: number = 12209;
 console.log(`Indo Arabic value: `, indoArabicValue);
 
 let romanNumeral: StrategyContext = new StrategyContext(new HumanStrategy(indoArabicValue));
-console.log(`Value converted to roman: `, romanNumeral.numeral);
+// console.log(`Value converted to roman: `, romanNumeral.numeral);
 
-// romanNumeral.strategy = new MathematicalStrategy(indoArabicValue);
+romanNumeral.strategy = new MathematicalStrategy(indoArabicValue);
 // console.log(`Value converted to roman: `, romanNumeral.numeral);
