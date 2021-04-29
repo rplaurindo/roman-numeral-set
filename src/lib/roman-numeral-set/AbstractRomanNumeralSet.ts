@@ -14,8 +14,8 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
     protected indoArabicNumeralList: [number, number, number, number, number,
         number, number, number, number, number, number, number, number];
 
-        // protected indoArabicBaseNumberList: [number, number, number, number,
-    protected indoArabicBaseNumberList: [number, number, number, number, number,
+    // protected indoArabicBaseNumeralList: [number, number, number, number,
+    protected indoArabicBaseNumeralList: [number, number, number, number, number,
         number, number];
 
     protected romanNumeralList: [string, string, string, string, string,
@@ -34,7 +34,7 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         this.indoArabicNumeral = indoArabicNumeral;
 
-        this.indoArabicBaseNumberList = [1, 5, 10, 50, 100, 500, 1000];
+        this.indoArabicBaseNumeralList = [1, 5, 10, 50, 100, 500, 1000];
 
         this.indoArabicNumeralList =    [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000];
 
@@ -84,11 +84,13 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         let placeUnityInRoman: string = this.romanNumeralMap.get(placeOf) as string;
 
-        let indoArabicBaseNumber: number;
+        let indoArabicBaseNumeral: number;
 
-        let decoratedRomanNumeral: string;
+        let romanBaseNumeral: string;
 
-        let unityValueOfPlaceSum = 0;
+        let romanNumeral: string;
+
+        let composedUnitsOfPlace: string;
 
         let groups: string[];
 
@@ -100,26 +102,27 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
         if (indoArabicNumeral > 999) {
             groups = this.getSeparateValueInGroupsOf3(indoArabicNumeral);
             groupOfThousands = this.getNumberReferring2PlaceOfThousands(groups);
-            decoratedRomanNumeral = this.composePlaceUnityInRoman(
+            romanNumeral = this.composePlaceUnityInRoman(
                 this.romanNumeralMap.get(1000) as string
                 , groupOfThousands
             );
         } else {
-            indoArabicBaseNumber = this.getBaseNumberOfPlace(indoArabicNumeral);
-            decoratedRomanNumeral = this.romanNumeralMap.get(indoArabicBaseNumber) as string;
+            indoArabicBaseNumeral = this.getBaseNumberOfPlace(indoArabicNumeral);
+            romanBaseNumeral = this.romanNumeralMap.get(indoArabicBaseNumeral) as string;
 
             if (firstDigit === 4 || firstDigit === 9) {
-                decoratedRomanNumeral = `${placeUnityInRoman}${decoratedRomanNumeral}`;
+                romanNumeral = `${placeUnityInRoman}${romanBaseNumeral}`;
             } else {
-                // ao invés de ser usado um loop aqui pode ser aproveitado o cálculo matemático como parâmetro de um método
-                while ((indoArabicBaseNumber + unityValueOfPlaceSum) < (firstDigit * placeOf)) {
-                    unityValueOfPlaceSum += placeOf;
-                    decoratedRomanNumeral += placeUnityInRoman;
-                }
+                composedUnitsOfPlace = this.composePlaceUnityInRoman(
+                    placeUnityInRoman
+                    , (((firstDigit * placeOf) - indoArabicBaseNumeral) / placeOf)
+                );
+
+                romanNumeral = `${romanBaseNumeral}${composedUnitsOfPlace}`;
             }
         }
 
-        return decoratedRomanNumeral;
+        return romanNumeral;
     }
 
     private composePlaceUnityInRoman(placeUnityInRoman: string, times2Repeat: number): string {
@@ -160,59 +163,59 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
 
         const firstDigit: number = Number.parseInt(`${indoArabicNumber}`.charAt(0));
 
-        let indoArabicBaseNumber: number = 0;
+        let indoArabicBaseNumeral: number = 0;
 
-        let indoArabicBaseNumberListLength: number = this.indoArabicBaseNumberList.length;
+        let indoArabicBaseNumeralListLength: number = this.indoArabicBaseNumeralList.length;
 
         // let recordedIndoArabicBaseNumber: number = 0;
 
         if (firstDigit === 4 || firstDigit === 9) {
             for (
                     let i: number = this.lastIndexOfIndoArabicBaseNumberList;
-                    i < indoArabicBaseNumberListLength; i++
+                    i < indoArabicBaseNumeralListLength; i++
                 ) {
 
-                indoArabicBaseNumber = this.indoArabicBaseNumberList[i];
+                indoArabicBaseNumeral = this.indoArabicBaseNumeralList[i];
 
-                // acho que ao invés de apagar deveria gravar o índice
-                // this.indoArabicBaseNumberList.shift();
-                // indoArabicBaseNumberListLength -= 1;
+                // this.indoArabicBaseNumeralList.shift();
+                // indoArabicBaseNumeralListLength -= 1;
                 // i -= 1;
 
-                if (indoArabicBaseNumber >= indoArabicNumber) {
-                    // this.indoArabicBaseNumberList.splice(0, i + 2);
+                if (indoArabicBaseNumeral >= indoArabicNumber) {
+                    // this.indoArabicBaseNumeralList.splice(0, i + 2);
                     this.lastIndexOfIndoArabicBaseNumberList = i;
                     break;
                 }
             }
         } else {
+            // adicionar suporte para retornar o 1000 também
             for (
                     let i: number = this.lastIndexOfIndoArabicBaseNumberList;
-                    i <= indoArabicBaseNumberListLength; i++
+                    i <= indoArabicBaseNumeralListLength; i++
                 ) {
 
-                // if (this.indoArabicBaseNumberList[i - 2]) {
-                //     recordedIndoArabicBaseNumber = this.indoArabicBaseNumberList[i - 2];
-                //     this.indoArabicBaseNumberList.shift();
-                //     indoArabicBaseNumberListLength -= 1;
+                // if (this.indoArabicBaseNumeralList[i - 2]) {
+                //     recordedIndoArabicBaseNumber = this.indoArabicBaseNumeralList[i - 2];
+                //     this.indoArabicBaseNumeralList.shift();
+                //     indoArabicBaseNumeralListLength -= 1;
                 //     i -= 1;
                 // }
 
-                if (indoArabicBaseNumber > indoArabicNumber) {
-                    // indoArabicBaseNumber = recordedIndoArabicBaseNumber;
+                if (indoArabicBaseNumeral > indoArabicNumber) {
+                    // indoArabicBaseNumeral = recordedIndoArabicBaseNumber;
 
-                    indoArabicBaseNumber = this.indoArabicBaseNumberList[i - 2];
+                    indoArabicBaseNumeral = this.indoArabicBaseNumeralList[i - 2];
                     this.lastIndexOfIndoArabicBaseNumberList = i;
 
-                    // this.indoArabicBaseNumberList.splice(0, i);
+                    // this.indoArabicBaseNumeralList.splice(0, i);
                     break;
                 }
 
-                indoArabicBaseNumber = this.indoArabicBaseNumberList[i];
+                indoArabicBaseNumeral = this.indoArabicBaseNumeralList[i];
             }
         }
 
-        return indoArabicBaseNumber;
+        return indoArabicBaseNumeral;
     }
 
 }
