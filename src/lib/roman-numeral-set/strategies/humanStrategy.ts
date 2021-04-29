@@ -18,50 +18,24 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
         this.setRomanNumeral();
     }
 
-    private getSeparateValueInGroupsOf3(value: number): string[] {
-
-        let valueAsString: string = `${value}`;
-
-        let groups = [];
-
-        for (let i: number = valueAsString.length; i > 0; i -= 3) {
-            groups.unshift(valueAsString.substring(i - 3, i));
-        }
-
-        return groups;
-    }
-
-    private getNumberReferring2PlaceOfThousands(separateValueInGroupsOf3: string[]): number {
-
-        const length: number = separateValueInGroupsOf3.length;
-
-        let valueAsString: string = '';
-
-        if (length > 1) {
-            for (let i: number = 0; i < length - 1; i++) {
-                valueAsString += `${separateValueInGroupsOf3[i]}`;
-            }
-
-            return Number.parseInt(valueAsString);
-        }
-
-        return 0;
-    }
-
     private setRomanNumeral() {
+
         const groups: string[]  = this.getSeparateValueInGroupsOf3(this.indoArabicNumeral);
 
         // this will always exist
-        const firstGroupOfNumbers: number = Number.parseInt(groups[groups.length - 1]);
+        const numberOfHoundreadsPlace: number = Number.parseInt(groups[groups.length - 1]);
 
-        const secondGroupOfNumbers: number = this.getNumberReferring2PlaceOfThousands(groups);
+        // const secondGroupOfNumbers: number = this.getNumberReferring2PlaceOfThousands(groups);
 
-        const firstGroupOfNumbersAsString: string = `${firstGroupOfNumbers}`;
+        const numberOfHoundreadsPlaceAsString: string = `${numberOfHoundreadsPlace}`;
 
-        const firstGroupOfNumbersLength: number = firstGroupOfNumbersAsString.length;
+        const numberOfHoundreadsPlaceLength: number = numberOfHoundreadsPlaceAsString.length;
 
-        const valueOfThousandPlaceInRoman: string = this
-            .getGroupOfThousandsInRoman(secondGroupOfNumbers);
+        // adicionar essa lógica ao método decorate para adicionar suporte a composição da parte de milhar. Acho que não vai precisar disso aqui, consequentemente.
+        // const valueOfThousandPlaceInRoman: string = this
+        //     .getChunkOfThousandInRoman(secondGroupOfNumbers);
+
+        let valueOfThousandPlaceInRoman: string = '';
 
         let currentDigit: number;
 
@@ -69,11 +43,17 @@ export class HumanStrategy extends AbstractRomanNumeralSet {
 
         let numberInRomanOfPlace: string;
 
+        // Colocar um if para filtrar se this.indoArabicNumeral é maior que 999, caso seja já fazer o decorate de cara que o decorate agora está inteligente o bastante para suportar a casa de milhares
+
+        if (this.indoArabicNumeral > 999) {
+            valueOfThousandPlaceInRoman = this.decorateRomanNumeralOfPlace(this.indoArabicNumeral);
+        }
+
         // a lógica de se começar da direita para a esquerda se dá, neste caso, porque os números são maiores neste sentido, isto é, um valor a esquerda de outros representa sempre um valor maior que todos esses outros que estão à direita.
-        for (let i = firstGroupOfNumbersLength - 1; i >= 0; i--) {
+        for (let i = numberOfHoundreadsPlaceLength - 1; i >= 0; i--) {
             numberInRomanOfPlace = '';
 
-            currentDigit = Number.parseInt(firstGroupOfNumbersAsString.charAt(i));
+            currentDigit = Number.parseInt(numberOfHoundreadsPlaceAsString.charAt(i));
 
             // se o dígito for 0 dará problema porque não existe mapa para 0 por não existir representação do 0 em romano
             if (currentDigit) {

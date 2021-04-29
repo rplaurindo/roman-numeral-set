@@ -58,34 +58,61 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
         return Number.parseInt(`1${zeros}`);
     }
 
-    protected decorateRomanNumeralOfPlace(indoArabicNumber: number)
+    // mover este método para uma extensão de Number
+    protected getSeparateValueInGroupsOf3(value: number): string[] {
+
+        let valueAsString: string = `${value}`;
+
+        let groups = [];
+
+        for (let i: number = valueAsString.length; i > 0; i -= 3) {
+            groups.unshift(valueAsString.substring(i - 3, i));
+        }
+
+        return groups;
+    }
+
+    protected decorateRomanNumeralOfPlace(indoArabicNumeral: number)
         : string {
 
-        const placeOf: number = this.getPlaceOfFirstDigit(indoArabicNumber);
+        const placeOf: number = this.getPlaceOfFirstDigit(indoArabicNumeral);
 
-        const indoArabicBaseNumber: number = this.getBaseNumberOfPlace(indoArabicNumber);
+        const indoArabicBaseNumber: number = this.getBaseNumberOfPlace(indoArabicNumeral);
 
-        const firstDigit: number = Number.parseInt(`${indoArabicNumber}`.charAt(0));
+        const firstDigit: number = Number.parseInt(`${indoArabicNumeral}`.charAt(0));
 
-        let romanBaseDigit: string = this.romanNumeralMap.get(indoArabicBaseNumber) as string;
+        let decoratedRomanNumeral: string = this.romanNumeralMap.get(indoArabicBaseNumber) as string;
 
         let unityInRomanOfPlace: string = this.romanNumeralMap.get(placeOf) as string;
 
         let unityValueOfPlaceSum = 0;
 
-        if (firstDigit === 4 || firstDigit === 9) {
-            romanBaseDigit = `${unityInRomanOfPlace}${romanBaseDigit}`;
+
+        let groups: string[];
+
+        let groupOfThousands: number;
+
+
+        if (indoArabicNumeral > 999) {
+            groups = this.getSeparateValueInGroupsOf3(indoArabicNumeral);
+            groupOfThousands = this.getNumberReferring2PlaceOfThousands(groups);
+            decoratedRomanNumeral = this.getChunkOfThousandInRoman(groupOfThousands);
         } else {
-            while ((indoArabicBaseNumber + unityValueOfPlaceSum) < (firstDigit * placeOf)) {
-                unityValueOfPlaceSum += placeOf;
-                romanBaseDigit += unityInRomanOfPlace;
+            if (firstDigit === 4 || firstDigit === 9) {
+                decoratedRomanNumeral = `${unityInRomanOfPlace}${decoratedRomanNumeral}`;
+            } else {
+                while ((indoArabicBaseNumber + unityValueOfPlaceSum) < (firstDigit * placeOf)) {
+                    unityValueOfPlaceSum += placeOf;
+                    decoratedRomanNumeral += unityInRomanOfPlace;
+                }
             }
         }
 
-        return romanBaseDigit;
+
+        return decoratedRomanNumeral;
     }
 
-    protected getGroupOfThousandsInRoman(thousandGroupNumber: number): string {
+    protected getChunkOfThousandInRoman(thousandGroupNumber: number): string {
 
         let composed: string = '';
 
@@ -107,6 +134,17 @@ export abstract class AbstractRomanNumeralSet implements StrategyInterface {
             }
         );
 
+    }
+
+    private getNumberReferring2PlaceOfThousands(separateValueInGroupsOf3: string[]): number {
+
+        separateValueInGroupsOf3.pop();
+
+        if (!separateValueInGroupsOf3.length) {
+            return 0;
+        }
+
+        return Number.parseInt(separateValueInGroupsOf3.join(''));
     }
 
     private getBaseNumberOfPlace(indoArabicNumber: number): number {
