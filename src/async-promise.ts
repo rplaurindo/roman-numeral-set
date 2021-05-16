@@ -21,14 +21,10 @@ export class AsyncPromise<T> {
     constructor (options: object, resolver: () => void) {
         this.self = this;
 
-        const resolveArguments: () => void = () => {
-            if (typeof options == "function") {
-                resolver = options as () => void;
-                options = {};
-            }
+        if (typeof options == "function") {
+            resolver = options as () => void;
+            options = {};
         }
-
-        resolveArguments();
 
         this.start(resolver, options);
     }
@@ -93,7 +89,7 @@ export class AsyncPromise<T> {
                             options.defer = 0;
                             resolver.call(this.self, this.accomplish);
                             // returns the control for the user
-                            switch (status) {
+                            switch (this.status) {
                                 case "resolved": {
                                     _accomplish(this._accomplishResponse);
                                 }

@@ -22,9 +22,9 @@ const readLine = readline.createInterface({
     output: process.stdout
 });
 
-const question = readLine.question("", function (input: string) {
-    cachedInput = input;
-});
+// const question = readLine.question("", function (input: string) {
+//     cachedInput = input;
+// });
 
 // const promise = new Promise(
 //     (input: ) => {
@@ -36,4 +36,4 @@ const question = readLine.question("", function (input: string) {
 //     question;
 // }
 
-console.log(question);
+// console.log(question);
