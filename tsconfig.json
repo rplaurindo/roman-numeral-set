@@ -1,29 +1,14 @@
 {
-  // to build, run: $ tsc -w on root path of the tsconfig.json
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    // genereted by $ tsc init
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "module": "CommonJS",
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ES2015",
-    "declaration": true,
-    "declarationMap": true,
-    "outDir": "dist",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "rootDir": "./",
-    "sourceMap": true
-    // , "types": [
-
-    // ]
+    "outDir": "dist/@actjs.on/roman-numeral-set"
   },
-  "include": [
-    "./src"
+  "references": [
+    {
+      "path": "./src"
+    }
   ],
-  "files": [
-    "package.json",
-    "index.ts"
+  "include": [
+    "package.json"
   ]
 }
