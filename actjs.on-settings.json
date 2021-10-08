@@ -1,0 +1,16 @@
+{
+  "cop-fy": {
+    "rootPath": "dist/@actjs.on/roman-numeral-set",
+    "settings": [
+      {
+        "directoriesOfCopyFilesSettings": [
+          {
+            "copyPatterns": [
+              "README.md"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
