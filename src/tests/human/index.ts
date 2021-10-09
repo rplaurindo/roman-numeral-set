@@ -14,26 +14,22 @@
 
 // console.log(`Value converted to roman: `, romanNumeral.numeral);
 
-let cachedInput: string = '';
-
 const readline = require("readline");
+
 const readLine = readline.createInterface({
     input: process.stdin,
     output: process.stdout
 });
 
-// const question = readLine.question("", function (input: string) {
-//     cachedInput = input;
-// });
+const recursiveAsyncReadLine = () => {
+    readLine.question("Entre com o numeral indo-arábico: ", (input: string) => {
+        if (input === `exit`) {
+            return readLine.close();
+        } else {
+            // ...
+            recursiveAsyncReadLine();
+        }
+    });
+}
 
-// const promise = new Promise(
-//     (input: ) => {
-
-//     }
-// );
-
-// while (cachedInput != 'exit') {
-//     question;
-// }
-
-// console.log(question);
+recursiveAsyncReadLine();
