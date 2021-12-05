@@ -1,5 +1,5 @@
 {
-  "name": "roman-numeral-set",
+  "name": "@rplaurindo/roman-numeral-set",
   "version": "1.0.0-0",
   "description": "Convertion from indo-arabic to roman.",
   "repository": {
