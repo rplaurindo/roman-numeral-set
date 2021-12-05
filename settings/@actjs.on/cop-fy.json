@@ -1,0 +1,28 @@
+{
+  "$schema": "../../node_modules/@actjs.on/cop-fy/settings/schema.json",
+  "rootProjectPath": "../../../",
+  "rootPath2CopyFor": "dist/@rplaurindo/roman-numeral-set",
+  "settings": [
+    {
+      "extPatterns": [
+        "md"
+      ]
+      , "pathsOfCopyFilesSettings": {
+        "exceptionPatterns": [
+          ".git/...",
+          "dist/...",
+          "node_modules/...",
+          "settings/...",
+          "src/..."
+        ],
+        "copySettings": [
+          {
+            "patterns": [
+              "./..."
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
