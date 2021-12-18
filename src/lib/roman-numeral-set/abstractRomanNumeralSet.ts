@@ -1,8 +1,8 @@
-import { StrategyInterface } from "./strategyInterface";
+import { Strategy } from "./strategy";
 
 
 // the concrete strategy
-export abstract class AbstractRomanNumeralSet implements StrategyInterface {
+export abstract class AbstractRomanNumeralSet implements Strategy {
 
     abstract numeral: string;
 

@@ -1,12 +1,12 @@
-import { StrategyInterface } from "./strategyInterface";
+import { Strategy } from "./strategy";
 
 
 // to use
 export class StrategyContext {
 
-    private _strategy: StrategyInterface;
+    private _strategy: Strategy;
 
-    constructor(strategy: StrategyInterface) {
+    constructor(strategy: Strategy) {
         this._strategy = strategy;
     }
 
