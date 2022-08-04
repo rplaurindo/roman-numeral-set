@@ -6,7 +6,7 @@
     "outDir": "../dist/@actjs.on/roman-numeral-set"
   },
   "include": [
-    "lib/**/*",
+    "ts/src/lib/**/*",
     "tests/**/*"
   ]
 }
