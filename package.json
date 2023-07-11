@@ -11,10 +11,9 @@
     "typescript": "~4.0.2"
   },
   "scripts": {
-    "build:prepare": "git pull && tsc -b",
-    "rwin:set-cop-fy-settings-directory": "npm set ACTJS_ON_SETTINGS_DIRECTORY=%INIT_CWD%/settings",
-    "rwin:cop-fy:copy-files": "npm run rwin:set-cop-fy-settings-directory && npm explore @actjs.on/cop-fy -- npm run copy-files",
-    "rwin:build": "npm run build:prepare && npm run rwin:cop-fy:copy-files",
-    "test:human": "node dist/@actjs.on/roman-numeral-set/tests/human"
+    "copfy:copy-files": "npm explore @cyberjs.on/copfy -- npm run copy-files",
+    "build": "tsc -b && npm run copfy:copy-files",
+    "update-build": "git pull && npm run build",
+    "test:human": "node es/tests/human"
   }
 }
